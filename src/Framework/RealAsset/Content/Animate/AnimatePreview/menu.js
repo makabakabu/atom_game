@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faClone, faCircleNotch } from '@fortawesome/fontawesome-free-solid';
-import { Modal } from 'antd';
+import { Modal, Select, AutoComplete } from 'antd';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-const Menu = ({ enterLeave, edit, duplicate, loopVisibility, loop, settingOk, settingCancel, changeLoopType, changeNumType }) => (
+const Menu = ({ enterLeave, edit, duplicate, loopVisibility, loop, settingOk, settingCancel, changeLoopType, changeNum, loopSequence, focusedFrame }) => (
     <ContextMenu id="animateMenu">
         <div id="animateMenuContainer" style={styles.main}>
             <div style={styles.container}>
@@ -62,29 +62,20 @@ const Menu = ({ enterLeave, edit, duplicate, loopVisibility, loop, settingOk, se
                   visible={loop.get('visibility')}
                   onOk={settingOk}
                   onCancel={settingCancel}
-                  width={300}
+                  width={350}
                   okText="确定"
                   cancelText="取消"
                 >
                     <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <div style={{ width: '35%', display: 'flex', justifyContent: 'space-between' }}>
+                        <div>
                             类型：
-                            <div id="animateLoopCircle" style={{ alignItems: 'center', cursor: 'pointer', backgroundColor: loop.get('loopType') === 'circle' ? '#ededed' : 'transparent' }} onClick={changeLoopType({ loopType: 'circle' })} role="presentation">
-                                ⟳
-                            </div>
-                            <div id="animateLoopStraight" style={{ alignItems: 'center', cursor: 'pointer', backgroundColor: loop.get('loopType') !== 'circle' ? '#ededed' : 'transparent' }} onClick={changeLoopType({ loopType: 'straight' })} role="presentation">
-                                ⇀
-                            </div>
+                            <Select defaultValue={loop.get('loopType')} onChange={value => changeLoopType({ loopType: value })} >
+                                <Select.Option value="circle">环形循环</Select.Option>
+                                <Select.Option value="straight">线性循环</Select.Option>
+                            </Select>
                         </div>
-                        <div style={{ width: loop.get('numType') === 'infinite' ? '35%' : '50%', display: 'flex', justifyContent: 'space-between' }}>
-                            次数：
-                            <div id="animateLoopNumTypeInfinite" style={{ alignItems: 'center', cursor: 'pointer', backgroundColor: loop.get('numType') === 'infinite' ? '#ededed' : 'transparent' }} onClick={changeNumType({ numType: 'infinite' })} role="presentation">
-                                ∞
-                            </div>
-                            <div id="animateLoopNumTypeCountable" style={{ alignItems: 'center', cursor: 'pointer', backgroundColor: loop.get('numType') !== 'infinite' ? '#ededed' : 'transparent' }} onClick={changeNumType({ numType: 'countable' })} role="presentation">
-                                C
-                            </div>
-                            {/* <InputNumber id="animateLoopNum" size="small" style={{ width: 50, display: loop.get('numType') === 'infinite' ? 'none' : 'block' }} disabled={true} defaultValue={loop.get('num')} min={0} onChange={(value) => { global = global.set('num', value); }} /> */}
+                        <div>
+                            数目：<AutoComplete dataSource={['永久']} placeholder="永久" style={{ width: 100 }} onChange={value => changeNum({ value })} />
                         </div>
                     </div>
                 </Modal>
@@ -102,7 +93,7 @@ Menu.propTypes = {
     settingOk: PropTypes.func.isRequired,
     settingCancel: PropTypes.func.isRequired,
     changeLoopType: PropTypes.func.isRequired,
-    changeNumType: PropTypes.func.isRequired,
+    changeNum: PropTypes.func.isRequired,
 };
 
 let styles = {
@@ -132,10 +123,15 @@ let styles = {
     },
 };
 
-const mapStateToProps = state => ({
-    animate: state.getIn(['realAsset', 'content', 'animate']),
-    loop: state.getIn(['realAsset', 'content', 'animate', 'frame', 'loop']),
-});
+const mapStateToProps = (state) => {
+    const focusedAnimate = state.getIn(['realAsset', 'content', 'animate', 'focusedAnimate']);
+    return {
+        animate: state.getIn(['realAsset', 'content', 'animate']),
+        loop: state.getIn(['realAsset', 'content', 'animate', 'frame', 'loop']),
+        loopSequence: state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'loopSequence']),
+        focusedFrame: state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']),
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     enterLeave: ({ item, color1, color2 }) => () => {
@@ -181,36 +177,18 @@ const mapDispatchToProps = dispatch => ({
             type: 'ANIMATE_LOOP_VISIBILITY',
             visibility: false,
         }),
-    changeLoopType: ({ loopType }) => () => {
-        if (loopType === 'circle') {
-            document.getElementById('animateLoopCircle').style.backgroundColor = '#ededed';
-            document.getElementById('animateLoopStraight').style.backgroundColor = 'transparent';
-        } else {
-            document.getElementById('animateLoopCircle').style.backgroundColor = 'transparent';
-            document.getElementById('animateLoopStraight').style.backgroundColor = '#ededed';
-        }
+    changeLoopType: ({ loopType }) =>
         dispatch({
             type: 'LOOP_CHANGE_VALUE',
             name: 'loopType',
             value: loopType,
-        });
-    },
-    changeNumType: ({ numType }) => () => {
-        if (numType === 'infinite') {
-            document.getElementById('animateLoopNumTypeInfinite').style.backgroundColor = '#ededed';
-            document.getElementById('animateLoopNumTypeCountable').style.backgroundColor = 'transparent';
-            // document.getElementById('animateLoopNum').style.display = 'none';
-        } else {
-            document.getElementById('animateLoopNumTypeCountable').style.backgroundColor = '#ededed';
-            document.getElementById('animateLoopNumTypeInfinite').style.backgroundColor = 'transparent';
-            // document.getElementById('animateLoopNum').style.display = 'block';
-        }
+        }),
+    changeNum: ({ value }) =>
         dispatch({
             type: 'LOOP_CHANGE_VALUE',
-            name: 'numType',
-            value: numType,
-        });
-    },
+            name: 'num',
+            value: value === '永久' ? Infinity : value,
+        }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);

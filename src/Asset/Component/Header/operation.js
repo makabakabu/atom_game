@@ -41,7 +41,7 @@ const Operation = ({ account, register, signIn, store, storeVisibility, changeAc
           role="presentation"
           onMouseEnter={event => enterStore({ event })}
           onMouseLeave={event => leaveStore({ event })}
-          onClick={storeVisibility({ visibility: true })}
+          onClick={storeVisibility({ visibility: true && window.sessionStorage.getItem('token') })}
         />
         <Modal open={store.get('visibility')} onClose={storeVisibility({ visibility: false })} little>
             <div style={{ width: document.documentElement.clientWidth - 300, height: document.documentElement.clientHeight - 200, marginTop: '20px' }}>

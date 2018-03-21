@@ -47,7 +47,6 @@ const initState = Map({
                     loop: Map({
                         visibility: false,
                         loopType: 'circle',
-                        numType: 'infinite',
                         num: 1,
                     }),
                 }),

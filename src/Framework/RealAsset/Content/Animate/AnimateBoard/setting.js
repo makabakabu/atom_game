@@ -4,26 +4,19 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { Slider } from 'antd';
-import { Map, OrderedMap, List } from 'immutable';
 import { faLock, faLockOpen, faExpand, faCompress, faBackward, faPlay, faPause, faForward } from '@fortawesome/fontawesome-free-solid';
 import generator from './generator';
 
-let interval;
 // 标记所在frameSequence中frame位置
 // loopSequence是排好序的
 // 标记好位置和loop过的次数
 // 初始化和注销位置
-let executeInfo = Map({
-    frameSequence: OrderedMap({}),
-    loopSequence: List([]),
-    executeList: List([]),
-});
 const Setting = ({
-    onChange, locked, changeState, trace, progress, changeExecuteState, changeExecuteValue,
+    onChange, locked, changeState, trace, progress, changeExecuteState, changeExecuteValue, frameSequence, loopSequence,
 }) => (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div style={styles.progressBar}>
-            <Slider trackStyle={[{ backgroundColor: '#aaa' }]} value={progress.get('value')} max={progress.get('max')} dotStyle={{ backgroundColor: '#aaa' }} onChange={value => changeExecuteValue({ value })} />
+            <Slider trackStyle={[{ backgroundColor: '#aaa' }]} value={progress.get('value')} max={progress.get('max')} dotStyle={{ backgroundColor: '#aaa' }} onChange={value => changeExecuteValue({ num: value, loopSequence, frameSequence })} />
         </div>
         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ width: '15%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#6a6a6a', fontSize: '12px' }}>
@@ -41,9 +34,9 @@ const Setting = ({
                 </div>
             </div>
             <div id="execute" style={styles.progressControlContainer} >
-                <FontAwesomeIcon icon={faBackward} onMouseDown={() => changeExecuteValue({ value: progress.get('value') - 1 })} />
-                <FontAwesomeIcon icon={progress.get('execute') ? faPause : faPlay} onMouseDown={changeExecuteState({ progress })} />
-                <FontAwesomeIcon icon={faForward} onMouseDown={() => changeExecuteValue({ value: progress.get('value') + 1 })} />
+                <FontAwesomeIcon icon={faBackward} onMouseDown={() => changeExecuteValue({ num: progress.get('value') - 1, frameSequence, loopSequence })} />
+                <FontAwesomeIcon icon={progress.get('execute') ? faPause : faPlay} onMouseDown={changeExecuteState({ progress, frameSequence, loopSequence, num: progress.get('value') })} />
+                <FontAwesomeIcon icon={faForward} onMouseDown={() => changeExecuteValue({ num: progress.get('value') + 1, frameSequence, loopSequence })} />
             </div>
             <div style={{ height: '30px', width: '18%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#6a6a6a' }}>
                 <div style={{ width: '60px', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
@@ -65,6 +58,8 @@ Setting.propTypes = {
     progress: ImmutablePropTypes.map.isRequired,
     changeExecuteState: PropTypes.func.isRequired,
     changeExecuteValue: PropTypes.func.isRequired,
+    frameSequence: ImmutablePropTypes.orderedMap.isRequired,
+    loopSequence: ImmutablePropTypes.list.isRequired,
 };
 
 const styles = {
@@ -86,20 +81,12 @@ const styles = {
 
 const mapStateToProps = (state) => {
     const focusedAnimate = state.getIn(['realAsset', 'content', 'animate', 'focusedAnimate']);
-    const loopSequence = state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'loopSequence']);
-    const frameSequence = state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'frameSequence']);
-    if (!loopSequence.equals(executeInfo.get('loopSequence')) || !frameSequence.equals(executeInfo.get('frameSequence'))) {
-        // 初始化和注销点
-         executeInfo = Map({
-            frameSequence,
-            loopSequence,
-            executeList: List([]),
-        });
-    }
     return {
         locked: state.getIn(['realAsset', 'content', 'animate', 'locked']),
         trace: state.getIn(['realAsset', 'content', 'animate', 'trace']),
         progress: state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress']),
+        loopSequence: state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'loopSequence']),
+        frameSequence: state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'frameSequence']),
     };
 };
 
@@ -127,35 +114,29 @@ const mapDispatchToProps = (dispatch) => {
                 type: 'ANIMATE_CHANGE_STATE',
                 kind,
             }),
-        changeExecuteState: ({ progress }) => () => {
-            if (progress.get('execute')) {
-                clearInterval(interval);
+        changeExecuteState: ({ progress, frameSequence, loopSequence, num }) => () => {
+            setTimeout(() =>
                 dispatch({
-                    type: 'ANIMATE_EXECUTE_PAUSE',
-                });
-            } else {
-                // 判断当前frame是否在loopSequence中
-                // 直接生成Generator放到
-                executeInfo = executeInfo.set('executeList', generator({ executeInfo }));
-                let temp = executeInfo.get('executeList').next();
-                while (!temp.done) {
-                    const frameList = temp.value.get('frameList');
-                    setTimeout(() => {
-                        dispatch({
-                            type: 'ANIMATE_EXECUTE',
-                            frameList,
-                        });
-                    }, temp.value.get('time') * 100);
-                    temp = executeInfo.get('executeList').next();
-                }
+                    type: 'ANIMATE_EXECUTE_CHANGE_STATE',
+                }), 200);
+            while (progress.get('execute')) {
+                num += 1;
+                console.log(num);
+                const { time, frameList } = generator({ frameSequence, loopSequence, num });
+                setTimeout(() => {
+                    dispatch({
+                        type: 'ANIMATE_EXECUTE',
+                        frameList,
+                    });
+                }, time * 100);
             }
         },
-
-        changeExecuteValue: ({ value }) =>
+        changeExecuteValue: ({ num, frameSequence, loopSequence }) => {
             dispatch({
                 type: 'ANIMATE_EXECUTE',
-                frameList: executeInfo.get('executeList').next(value).value.get('frameList'),
-            }),
+                frameList: generator({ frameSequence, loopSequence, num }).frameList,
+            });
+        },
     };
 };
 

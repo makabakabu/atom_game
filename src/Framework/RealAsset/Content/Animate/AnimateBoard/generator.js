@@ -1,50 +1,86 @@
-import { Map, List } from 'immutable';
+import { Map, List, OrderedMap } from 'immutable';
+import uuidv4 from 'uuid';
 
-function* generator({ executeInfo }) {
+const generator = ({ frameSequence, loopSequence, num }) => {
+  // create an orderedMap, loopType, num
+    let frameSliceMap = OrderedMap({});
+    let frameIdList = List(frameSequence.keySeq());
+    loopSequence.forEach((loopMap) => {
+    if (loopMap.getIn(['sequence', 0]) !== frameIdList.get(0)) {
+        frameSliceMap = frameSliceMap.concat(OrderedMap({ [uuidv4()]: Map({
+            loopType: 'straight',
+            num: 1,
+            sequence: frameIdList.slice(0, frameIdList.indexOf(loopMap.getIn(['sequence', 0]))),
+        }) }));
+    }
+        frameSliceMap = frameSliceMap.concat(OrderedMap({ [uuidv4()]: loopMap }));
+        frameIdList = frameIdList.slice(frameIdList.indexOf(loopMap.getIn(['sequence', 0])));
+    });
+  // 查看是否为countable, 若是则计算num是否在内，若不在，则移向下一个
     let position = Map({
         x: 0,
         y: 0,
     });
-    let frameList = List([]);
-    const frameIdList = List(executeInfo.get('frameSequence').keySeq());
-    for (let i = 0; i < frameIdList.size; i += 1) {
-        const frame = executeInfo.getIn(['frameSequence', frameIdList.get(i)]);
-        if (executeInfo.get('loopSequence').size > 0 && executeInfo.getIn(['loopSequence', 0, 'sequence']).first() === frameList.get(i)) {
-            const loop = executeInfo.getIn(['loopSequence', 0]);
-            let tempPosition = position;
-            let loopFrameList = List([]);
-            for (let j = 0; j < loop.get('sequence').size; j += 1) {
-                loopFrameList = loopFrameList.push(loop.getIn(['sequence', j]).updateIn(['functionPanel', 'position']), value => Map({
-                    x: value.get('x') + tempPosition.get('x'),
-                    y: value.get('y') + tempPosition.get('y'),
-                }));
-                tempPosition = tempPosition.update('x', value => value + loop.getIn(['sequence', j, 'functionPanel', 'position', 'x']));
-                tempPosition = tempPosition.update('y', value => value + loop.getIn(['sequence', j, 'functionPanel', 'position', 'y']));
+    let time = 2;
+    let frameId;
+    frameSliceMap.forEach((frameSlice) => {
+        if (frameSlice.get('num') === Infinity || (num >= 0 && num <= (frameSlice.get('sequence').size * frameSlice.get('num')) - 1)) {
+          // 查看是否为环形还是直线，
+            if (frameSlice.get('loopType') === 'straight') {
+                const cycle = Math.floor(num / frameSlice.get('sequence').size);
+                const remain = num % frameSlice.get('sequence').size;
+                position = Map({
+                    x: position.get('x') + (slicePosition({ frameSequence, frameSlice, num: frameSlice.get('sequence').size - 1 }).get('x') * cycle) + slicePosition({ frameSequence, frameSlice, num: remain }).get('x'),
+                    y: position.get('y') + (slicePosition({ frameSequence, frameSlice, num: frameSlice.get('sequence').size - 1 }).get('y') * cycle) + slicePosition({ frameSequence, frameSlice, num: remain }).get('y'),
+                });
+                time = frameSequence.getIn([frameSlice.getIn(['sequence', remain]), 'functionPanel', 'time']);
+                frameId = frameSlice.getIn(['sequence', remain]);
+            } else {
+                const remain = num % frameSlice.get('sequence').size;
+                console.log(frameSequence, frameSlice, remain, slicePosition({ frameSequence, frameSlice, num: remain }));
+                position = Map({
+                    x: position.get('x') + slicePosition({ frameSequence, frameSlice, num: remain }).get('x'),
+                    y: position.get('y') + slicePosition({ frameSequence, frameSlice, num: remain }).get('y'),
+                });
+                time = frameSequence.getIn([frameSlice.getIn(['sequence', remain]), 'functionPanel', 'time']);
+                frameId = frameSlice.getIn(['sequence', remain]);
             }
-            // 所有形态已经形成
-            for (let j = 0; j < (loop.get('numType') === 'infinite') ? Infinity : loop.get('num'); j += 1) { // loop for some loopTime
-                for (let k = 0; k < loop.get('sequence').size; k += 1) {
-                    if (loop.get('loopType') === 'circle') {
-                        frameList = frameList.concat(loopFrameList.slice(0, k).push(loopFrameList.get(k)));
-                    } else {
-                        position = position.update('x', value => value + loop.getIn(['sequence', k, 'functionPanel', 'position', 'x']));
-                        position = position.update('y', value => value + loop.getIn(['sequence', k, 'functionPanel', 'position', 'y']));
-                        const tempFrameList = loopFrameList.slice(0, k).push(loopFrameList.get(k)).map((value => value.setIn(['functionPanel', 'position'], position)));
-                        frameList = frameList.concat(tempFrameList);
-                    }
-                    yield Map({ time: executeInfo.getIn(['frameSequence', loop.getIn(['sequence', k]), 'functionPanel', 'time']), frameList });
-                }
-            }
-            executeInfo = executeInfo.deleteIn(['loopSequence', 0]);
-            i += loop.get('sequence').size;
-        } else {
-            frameList = frameList.push(frame.updateIn(['functionPanel', 'position'], positionMap => Map({
-                x: position.get('x') + positionMap.get('x'),
-                y: position.get('y') + positionMap.get('y'),
-            })));
-            yield Map({ time: frame.getIn(['functionPanel', 'time']), frameList });
+            return false;
+        } else if (frameSlice.get('loopType') === 'straight') { // 不再frameSlice中，并且loopType为straight
+            position = Map({
+                x: position.get('x') + (slicePosition({ frameSequence, frameSlice, num: frameSlice.get('sequence').size - 1 }).get('x') * frameSlice.get('num')),
+                y: position.get('y') + (slicePosition({ frameSequence, frameSlice, num: frameSlice.get('sequence').size - 1 }).get('y') * frameSlice.get('num')),
+            });
+            num -= frameSlice.get('num') * frameSlice.get('sequence').size;
+            return true;
         }
-    }
-}
+        const remain = num % frameSlice.get('sequence').size;
+        position = Map({
+            x: position.get('x') + slicePosition({ frameSequence, frameSlice, num: remain }).get('x'),
+            y: position.get('y') + slicePosition({ frameSequence, frameSlice, num: remain }).get('y'),
+        });
+        num -= frameSlice.get('sequence').size;
+        return true;
+    });
+    return { time, frameList: List(frameSequence.keySeq()).slice(0, List(frameSequence.keySeq()).indexOf(frameId)).push(frameId) };
+};
+
+const slicePosition = ({ frameSequence, frameSlice, num }) => {
+    let position = Map({
+        x: 0,
+        y: 0,
+    });
+    frameSlice.get('sequence').forEach((frameId, index) => {
+        if (index <= num) {
+            position = Map({
+                x: position.get('x') + frameSequence.getIn([frameId, 'functionPanel', 'position', 'x']),
+                y: position.get('y') + frameSequence.getIn([frameId, 'functionPanel', 'position', 'y']),
+            });
+            return true;
+        }
+        return false;
+    });
+    return position;
+};
 
 export default generator;

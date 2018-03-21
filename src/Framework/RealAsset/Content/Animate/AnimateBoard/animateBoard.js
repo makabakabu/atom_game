@@ -10,7 +10,7 @@ const AnimateBoard = ({ frameList }) =>
     <div style={styles.main}>
         <div id="animateBoard" style={styles.board} >
             {
-                frameList.map((frame, index) => <Board key={uuidv4()} frame={frame} isFocused={index === (frameList.size - 1)} />)
+                frameList.map(frameId => <Board key={uuidv4()} frameId={frameId} />)
             }
         </div>
         <Setting />
@@ -32,7 +32,7 @@ const styles = {
     },
     board: {
         width: '100%',
-        height: '370px',
+        height: '350px',
         backgroundColor: '#ededed',
         display: 'flex',
         justifyContent: 'flex-start',

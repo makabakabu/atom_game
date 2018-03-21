@@ -7,9 +7,13 @@ import uuidv4 from 'uuid';
 // 1. 判断width， height应有的长度
 // 整体的scale，和frame个体的scale
 
-const Board = ({ frame, value, isFocused, color }) => (
+const Board = ({ frame, isFocused, value, color }) => (
     <div
-      style={{ height: `${4.8 * value.size}px`, width: `${4.8 * value.get(0).size}px`, display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', position: 'absolute', left: 0, bottom: 0, zIndex: isFocused ? 1 : 0, transform: `rotate(${frame.getIn(['functionPanel', 'angle'])}deg) scale(${frame.getIn(['functionPanel', 'shrink'])}, ${frame.getIn(['functionPanel', 'shrink'])}) translate(${frame.getIn(['functionPanel', 'position', 'x']) * 4.8}px, -${frame.getIn(['functionPanel', 'position', 'y']) * 4.8}px)` }}
+      style={{ ...styles.main, height: `${4.8 * value.size}px`, width: `${4.8 * value.get(0).size}px`,
+        zIndex: isFocused ? 1 : 0, transform: `rotate(${frame.getIn(['functionPanel', 'angle'])}deg)
+        scale(${frame.getIn(['functionPanel', 'shrink'])}, ${frame.getIn(['functionPanel', 'shrink'])})
+        translate(${frame.getIn(['functionPanel', 'position', 'x']) * 4.8}px, -${frame.getIn(['functionPanel', 'position', 'y']) * 4.8}px)`,
+      }}
     >
         {
             value.map((rowList, rowIndex) => rowList.map((cell, colIndex) => (<div
@@ -32,9 +36,27 @@ Board.propTypes = {
     color: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-    value: state.getIn(['realAsset', 'figuresGroup', ownProps.frame.get('figureId'), 'status', ownProps.frame.get('statusId'), 'value']),
-});
+const styles = {
+    main: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        position: 'absolute',
+        left: 0,
+        bottom: 0,
+    },
+};
+
+const mapStateToProps = (state, ownProps) => {
+    const focusedAnimate = state.getIn(['realAsset', 'content', 'animate', 'focusedAnimate']);
+    const frame = state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'frameSequence', ownProps.frameId]);
+    return {
+        frame,
+        value: state.getIn(['realAsset', 'figuresGroup', frame.get('figureId'), 'status', frame.get('statusId'), 'value']),
+        isFocused: state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).includes(ownProps.frameId),
+    };
+};
 
 const mapDispatchToProps = () => ({
     color: ({ cell, isFocused }) => {

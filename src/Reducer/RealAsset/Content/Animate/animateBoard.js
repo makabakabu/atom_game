@@ -17,11 +17,10 @@ const animateBoard = (state = {}, action) => {
         case 'ANIMATE_CHANGE_STATE':
             return state.updateIn(['content', 'animate', action.kind], value => !value);
 
-        case 'ANIMATE_EXECUTE_PAUSE':
-            return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'execute'], false);
+        case 'ANIMATE_EXECUTE_CHANGE_STATE':
+            return state.updateIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'execute'], execute => !execute);
 
         case 'ANIMATE_EXECUTE':
-            state = state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'execute'], true);
             return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'frameList'], action.frameList);
 
         case 'ANIMATE_CHANGE_EXECUTE_VALUE':

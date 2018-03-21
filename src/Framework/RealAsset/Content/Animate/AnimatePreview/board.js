@@ -49,7 +49,6 @@ Board.propTypes = {
 const styles = {
     main: {
         width: '110px',
-        marginTop: '12.5px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

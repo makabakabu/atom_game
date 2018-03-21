@@ -46,7 +46,11 @@ const previewBoard = (state, action) => {
 
         case 'FOCUS_FRAME':
             if (state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).size === 0 || (!state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).includes(action.framId) && !action.shift)) {
-                return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], List([action.frameId]));
+                state = state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], List([action.frameId]));
+                if (!state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'frameList']).includes(action.frameId)) {
+                    state = state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'frameList'], List([action.frameId]));
+                }
+                return state;
             } else if (state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']) !== state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame', 0]) && action.shift) {
                 const animate = state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId')]);
                 const focusedFrameId = animate.getIn(['focusedFrame', 0]);
@@ -55,7 +59,11 @@ const previewBoard = (state, action) => {
                 const index2 = frameList.indexOf(action.frameId);
                 const startId = Math.min(index1, index2);
                 const endId = Math.max(index1, index2);
-                return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], frameList.slice(startId, endId).push(frameList.get(endId)));
+                state = state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], frameList.slice(startId, endId).push(frameList.get(endId)));
+                if (!frameList.slice(startId, endId).push(frameList.get(endId)).isSubset(state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'frameList']))) {
+                    state = state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'frameList'], frameList.slice(startId, endId).push(frameList.get(endId)));
+                }
+                return state;
             }
             return state;
 

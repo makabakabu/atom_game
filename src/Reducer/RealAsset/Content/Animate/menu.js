@@ -35,7 +35,6 @@ const menu = (state, action) => {
             state = state.setIn(['content', 'animate', 'frame', 'loop'], Map({
                 visibility: false,
                 loopType: 'circle',
-                numType: 'infinite',
                 num: 1,
             }));
             return state.updateIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'loopSequence'], loopSequence => loopSequence.push(loop.set('sequence', focusedFrame)));
