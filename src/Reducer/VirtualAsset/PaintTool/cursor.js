@@ -3,7 +3,7 @@ const rotateEpic = action$ => (
         .throttleTime(100)
 );
 
-const cursor = (state, action) => {
+const cursor = ({ state, action }) => {
     switch (action.type) {
         case 'VIRTUALASSET_PAINTTOOL_CURSOR_ARRANGE_SELECT':
             return state.set('arrangeViewMode', action.direction);

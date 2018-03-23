@@ -39,7 +39,7 @@ const RealAsset = ({ data, hover, panelSort, deleteHover, deleteUnhover, deleteR
                 <SortableList items={data.getResource} onSortEnd={({ oldIndex, newIndex }) => panelSort({ oldIndex, newIndex, hover, deleteResource, resource: data.getResource })} pressDelay={200} transitionDuration={100} axis="xy" />
                 <div style={{ width: '100%', height: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img
-                      src={require('../../../../Image/Public/trash.png')}
+                      src={require('Asset/Image/Public/trash.png')}
                       style={{ width: '30px', height: '30px' }}
                       onMouseEnter={event => deleteHover({ event })}
                       onMouseLeave={event => deleteUnhover({ event })}
@@ -100,7 +100,7 @@ const mapDispatchToProp = dispatch => ({
         }
     },
     deleteHover: ({ event }) => {
-        event.target.src = require('../../../../Image/Public/trashOpen.gif');
+        event.target.src = require('Asset/Image/Public/trashOpen.gif');
         dispatch({
             type: 'STORE_DELETE_HOVER',
             kind: 'realAsset',
@@ -108,7 +108,7 @@ const mapDispatchToProp = dispatch => ({
         });
     },
     deleteUnhover: ({ event }) => {
-        event.target.src = require('../../../../Image/Public/trashClose.gif');
+        event.target.src = require('Asset/Image/Public/trashClose.gif');
         dispatch({
             type: 'STORE_DELETE_HOVER',
             kind: 'realAsset',

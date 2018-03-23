@@ -2,7 +2,7 @@ import { Map, OrderedMap, List } from 'immutable';
 import { arrayMove } from 'react-sortable-hoc';
 import uuidv4 from 'uuid';
 
-const figure = (state = {}, action) => {
+const figure = ({ state, action }) => {
     switch (action.type) {
         case 'ADD_FIGURE':
             return state.set(action.figureId, Map({

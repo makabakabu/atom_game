@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 
-const account = (state, action) => {
+const account = ({ state, action }) => {
     switch (action.type) {
         case 'ACCOUNT_CHANGE_VISIBILITY':
             return state.set('visibility', action.visibility);

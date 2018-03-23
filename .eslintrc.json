@@ -1,7 +1,12 @@
 {
-    "extends": "airbnb",
+    "extends": [
+        "airbnb",
+        "plugin:flowtype/recommended"
+    ],
     "plugins": [
-        "react"
+        "react",
+        "jest",
+        "flowtype"
     ],
     "rules": {
         "object-shorthand": 1,
@@ -20,7 +25,18 @@
         "object-curly-newline": 0,
         "object-property-newline": 0,
         "no-shadow": 0,
-        "react/jsx-boolean-value": 0
+        "react/jsx-boolean-value": 0,
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "import/no-extraneous-dependencies": 0,
+        "import/no-unresolved": 0,
+        "import/extensions": 0
+    },
+    "env": {
+        "jest/globals": true
     },
     "globals": {
         "window": true,

@@ -1,7 +1,7 @@
 import { OrderedMap, Map, List } from 'immutable';
 import { arrayMove } from 'react-sortable-hoc';
 
-const statusContent = (state = {}, action) => {
+const statusContent = ({ state, action }) => {
     let status;
     if (Object.prototype.hasOwnProperty.call(action, 'statusId')) {
         status = state.getIn(['figuresGroup', action.figureId, 'status', action.statusId]);

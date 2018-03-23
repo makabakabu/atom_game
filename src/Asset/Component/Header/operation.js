@@ -35,7 +35,7 @@ const { TabPane } = Tabs;
 const Operation = ({ account, register, signIn, store, storeVisibility, changeAccountInfo, accountSettingOk, accountVisibility, accountChangeViewMode, logOff, enterStore, leaveStore }) => (
     <div style={{ width: '250px', height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <img
-          src={require('../../Image/Public/store.png')}
+          src={require('Asset//Image/Public/store.png')}
           style={{ width: '35px', height: '30px', marginRight: '20px' }}
           alt="资源"
           role="presentation"
@@ -67,14 +67,14 @@ const Operation = ({ account, register, signIn, store, storeVisibility, changeAc
         { window.sessionStorage.getItem('userName') ?
             <FontAwesomeIcon icon={faUser} style={{ fontSize: '23px', color: '#6a6a6a', cursor: 'pointer', marginLeft: '20px' }} onClick={logOff} /> :
             <img
-              src={require('../../Image/Public/signIn.png')}
+              src={require('Asset/Image/Public/signIn.png')}
               style={{ width: '30px', height: '25px', marginLeft: '20px', cursor: 'pointer' }}
               alt="登录"
               onMouseEnter={(event) => {
-                  event.target.src = require('../../Image/Public/signIn.gif');
+                  event.target.src = require('Asset/Image/Public/signIn.gif');
               }}
               onMouseLeave={(event) => {
-                  event.target.src = require('../../Image/Public/signIn.png');
+                  event.target.src = require('Asset/Image/Public/signIn.png');
               }}
               onClick={accountVisibility({ visibility: true })}
               role="presentation"
@@ -184,13 +184,13 @@ const mapDispatchToProp = dispatch => ({
         window.location.reload();
     },
     enterStore: ({ event }) => {
-        event.target.src = require('../../Image/Public/store.gif');
+        event.target.src = require('Asset/Image/Public/store.gif');
         dispatch({
             type: 'ENTER_STORE',
         });
     },
     leaveStore: ({ event }) => {
-        event.target.src = require('../../Image/Public/store.png');
+        event.target.src = require('Asset/Image/Public/store.png');
         dispatch({
             type: 'LEAVE_STORE',
         });

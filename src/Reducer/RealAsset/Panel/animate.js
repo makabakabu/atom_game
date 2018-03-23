@@ -2,7 +2,7 @@ import { OrderedMap, List, Map } from 'immutable';
 import { arrayMove } from 'react-sortable-hoc';
 import uuidv4 from 'uuid';
 
-const animate = (state = {}, action) => {
+const animate = ({ state, action }) => {
     switch (action.type) {
         case 'ADD_ANIMATE':
             state = state.set(uuidv4(), Map({

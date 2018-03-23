@@ -1,4 +1,4 @@
-const picker = (state, action) => {
+const picker = ({ state, action }) => {
     switch (action.type) {
         case 'VIRTUALASSET_PAINTTOOL_PICKER_VISIBILITY':
             return state.update('colorPicker', value => !value);

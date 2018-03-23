@@ -28,7 +28,7 @@ const FunctionPanel = ({ functionPanel, change, rotateOperation }) => (
                           id="rotateImage"
                           draggable="false"
                           style={{ ...styles.rotateImg, transform: `rotate(${functionPanel.get('angle')}deg)` }}
-                          src={require('../../../../../Asset/Image/PaintTool/Cursor/rotate.png')}
+                          src={require('Asset/Image/PaintTool/Cursor/rotate.png')}
                           alt="旋转图片"
                           onMouseDown={rotateOperation}
                           role="presentation"

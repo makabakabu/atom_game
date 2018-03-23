@@ -1,4 +1,4 @@
-const shape = (state, action) => {
+const shape = ({ state, action }) => {
     const viewMode = state.get('viewMode');
     switch (action.type) {
         case 'PAINTTOOL_SHAPE_SELECT_VIEWMODE':

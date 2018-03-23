@@ -1,4 +1,4 @@
-const region = (state, action) => {
+const region = ({ state, action }) => {
     switch (action.type) {
         case 'VIRTUALASSET_PAINTTOOL_REGION_VIEWMODE':
             return state.set('viewMode', action.viewMode);

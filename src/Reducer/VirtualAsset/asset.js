@@ -2,7 +2,7 @@ import { Map, List, OrderedMap } from 'immutable';
 import uuidv4 from 'uuid';
 import { arrayMove } from 'react-sortable-hoc';
 
-const asset = (state = {}, action) => {
+const asset = ({ state, action }) => {
     const viewMode = state.get('viewMode');
     let focusedId = state.getIn(['figure', 'focusedFigureId']);
     if (viewMode === 'animate') {

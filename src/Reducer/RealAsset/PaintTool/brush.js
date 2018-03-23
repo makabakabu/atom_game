@@ -1,4 +1,4 @@
-const brush = (state, action) => {
+const brush = ({ state, action }) => {
     switch (action.type) {
         case 'PAINTTOOL_BRUSH':
             return state.set(action.kind, action.value);

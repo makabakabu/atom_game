@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import TabBar from '../../../Asset/Component/PaintTool/tabBar';
-import Slide from '../../../Asset/Component/PaintTool/slide';
-import ColorPicker from '../../../Asset/Component/PaintTool/colorPicker';
+import TabBar from 'Asset/Component/PaintTool/tabBar';
+import Slide from 'Asset/Component/PaintTool/slide';
+import ColorPicker from 'Asset/Component/PaintTool/colorPicker';
 
 const Shape = ({
         shape, selectViewMode, colorClick, colorPicker, slide, rotateOperation, check,
@@ -38,7 +38,7 @@ const Shape = ({
                     <div id="rotateImage" style={{ width: '26px', height: '26px', backgroundColor: viewMode === 'polygon' ? `${shape.getIn(['polygon', 'stroke', 'selected']) ? shape.getIn(['polygon', 'stroke', 'hex']) : 'transparent'}` : '#ccc', clipPath: `polygon(${edgeShapeMap[shape.getIn(['polygon', 'edges'])]})` }} onMouseDown={rotateOperation} role="presentation">
                         <div style={{ zIndex: 10, width: '24px', height: '24px', marginLeft: '1px', marginTop: '1px', backgroundColor: viewMode === 'polygon' ? `${shape.getIn(['polygon', 'fill', 'selected']) ? shape.getIn(['polygon', 'fill', 'hex']) : 'white'}` : '#ccc', clipPath: `polygon(${edgeShapeMap[shape.getIn(['polygon', 'edges'])]})` }} >
                             {
-                                (viewMode === 'polygon') && <img draggable={false} style={{ zIndex: 100, width: '22px', height: '22px', marginTop: '1px', marginLeft: '1px', transform: `rotate(${(shape.getIn(['polygon', 'edges']) - 3) * 90}deg)` }} src={require('../../../Asset/Image/PaintTool/Shape/circle.png')} alt="circle" />
+                                (viewMode === 'polygon') && <img draggable={false} style={{ zIndex: 100, width: '22px', height: '22px', marginTop: '1px', marginLeft: '1px', transform: `rotate(${(shape.getIn(['polygon', 'edges']) - 3) * 90}deg)` }} src={require('Asset/Image/PaintTool/Shape/circle.png')} alt="circle" />
                             }
                         </div>
                     </div>

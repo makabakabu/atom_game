@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 
-const animateBoard = (state = {}, action) => {
+const animateBoard = ({ state, action }) => {
     const focusedAnimate = state.getIn(['content', 'animate', 'focusedAnimate']);
     switch (action.type) {
         case 'FOCUS_ANIMATE':

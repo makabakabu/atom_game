@@ -8,20 +8,20 @@ const Logo = ({ mouseEnter, mouseLeave }) =>
 (
     <div id="logo" style={styles.logo}>
         <img
-          src={require('../../Image/Public/name1.png')}
+          src={require('Asset/Image/Public/name1.png')}
           alt="这是logo呀"
           style={styles.logo_word}
         />
         <img
           id="logo_img"
-          src={require('../../Image/Public/logo.png')}
+          src={require('Asset/Image/Public/logo.png')}
           alt="这是logo呀"
           style={styles.logo_img}
           onMouseEnter={mouseEnter}
           onMouseLeave={mouseLeave}
         />
         <img
-          src={require('../../Image/Public/name2.png')}
+          src={require('Asset/Image/Public/name2.png')}
           alt="这是logo呀"
           style={styles.logo_word}
         />

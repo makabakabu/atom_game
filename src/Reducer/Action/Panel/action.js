@@ -2,7 +2,7 @@ import { OrderedMap, Map, List } from 'immutable';
 import { arrayMove } from 'react-sortable-hoc';
 import uuidv4 from 'uuid';
 
-const actionPanel = (state = {}, action) => {
+const actionPanel = ({ state, action }) => {
     switch (action.type) {
         case 'ACTION_MODAL_VISIBILITY':
             return state.updateIn(['actionSequence', action.viewMode, 'modalVisibility'], value => !value);

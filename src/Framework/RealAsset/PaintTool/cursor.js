@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { InputNumber } from 'antd';
-import TabBar from '../../../Asset/Component/PaintTool/tabBar';
-import Position from '../../../Asset/Component/PaintTool/position';
+import TabBar from 'Asset/Component/PaintTool/tabBar';
+import Position from 'Asset/Component/PaintTool/position';
 
 let angle = 0;
 const Cursor = ({
@@ -16,8 +16,8 @@ const Cursor = ({
         <div style={{ width: '200px', height: '30px', marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             模式：
             <div style={{ width: '80%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                <img style={{ width: '25px', height: '25px' }} src={require(`../../../Asset/Image/PaintTool/Cursor/outline${cursor.get('mode') === 'outline' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'outline' })} alt="轮廓" role="presentation" />
-                <img style={{ width: '25px', height: '25px' }} src={require(`../../../Asset/Image/PaintTool/Cursor/singleColor${cursor.get('mode') === 'singleColor' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'singleColor' })} alt="单色" role="presentation" />
+                <img style={{ width: '25px', height: '25px' }} src={require(`Asset/Image/PaintTool/Cursor/outline${cursor.get('mode') === 'outline' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'outline' })} alt="轮廓" role="presentation" />
+                <img style={{ width: '25px', height: '25px' }} src={require(`Asset/Image/PaintTool/Cursor/singleColor${cursor.get('mode') === 'singleColor' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'singleColor' })} alt="单色" role="presentation" />
             </div>
         </div>
         <div style={{ width: '200px', height: '100px', marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -33,7 +33,7 @@ const Cursor = ({
                   id="rotateImage"
                   draggable="false"
                   style={{ ...styles.rotateImg, transform: `rotate(${cursor.getIn(['rotate', 'angle'])}deg)` }}
-                  src={require('../../../Asset/Image/PaintTool/Cursor/rotate.png')}
+                  src={require('Asset/Image/PaintTool/Cursor/rotate.png')}
                   alt="旋转图片"
                   onMouseDown={rotateOperation}
                   role="presentation"
@@ -45,7 +45,7 @@ const Cursor = ({
               alt="垂直翻转"
               draggable="false"
               style={styles.flipHorizontal}
-              src={require(`../../../Asset/Image/PaintTool/Cursor/${cursor.getIn(['rotate', 'flip']) === 'vertical' ? 'flip_selected' : 'flip'}.png`)}
+              src={require(`Asset/Image/PaintTool/Cursor/${cursor.getIn(['rotate', 'flip']) === 'vertical' ? 'flip_selected' : 'flip'}.png`)}
               onMouseDown={flipSelect({ direction: 'vertical' })}
               onMouseUp={flipSelect({ direction: '' })}
             />
@@ -54,7 +54,7 @@ const Cursor = ({
               alt="水平翻转"
               draggable="false"
               style={styles.flipVertical}
-              src={require(`../../../Asset/Image/PaintTool/Cursor/${cursor.getIn(['rotate', 'flip']) === 'horizontal' ? 'flip_selected' : 'flip'}.png`)}
+              src={require(`Asset/Image/PaintTool/Cursor/${cursor.getIn(['rotate', 'flip']) === 'horizontal' ? 'flip_selected' : 'flip'}.png`)}
               onMouseDown={flipSelect({ direction: 'horizontal' })}
               onMouseUp={flipSelect({ direction: '' })}
             />

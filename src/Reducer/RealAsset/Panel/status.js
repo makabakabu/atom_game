@@ -1,7 +1,7 @@
 import { Map, List, OrderedMap } from 'immutable';
 import { arrayMove } from 'react-sortable-hoc';
 
-const status = (state = {}, action) => {
+const status = ({ state, action }) => {
     switch (action.type) {
         case 'ADD_STATUS':
             return state.set(action.statusId, Map({

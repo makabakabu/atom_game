@@ -2,7 +2,7 @@ import { OrderedMap, List, Map } from 'immutable';
 import { arrayMove } from 'react-sortable-hoc';
 import uuidv4 from 'uuid';
 
-const previewBoard = (state, action) => {
+const previewBoard = ({ state, action }) => {
     const focusedAnimate = state.getIn(['content', 'animate', 'focusedAnimate']);
     switch (action.type) {
         case 'ANIMATE_ADD_SEQUENCE': {

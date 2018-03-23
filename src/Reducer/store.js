@@ -1,4 +1,4 @@
-const store = (state, action) => {
+const store = ({ state, action }) => {
     switch (action.type) {
         case 'STORE_VISIBILITY':
             return state.set('visibility', action.visibility);

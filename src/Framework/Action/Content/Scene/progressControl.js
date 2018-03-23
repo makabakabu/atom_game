@@ -26,7 +26,7 @@ const ProgressControl = () => (
                     缩小:<FontAwesomeIcon icon={faCompress} style={{ cursor: 'pointer' }} />
                 </div>
                 <div>
-                    寻迹: <img style={{ width: '30px', height: '30px' }} src={require('../../../../Asset/Image/Public/trace.png')} alt="寻迹" />
+                    寻迹: <img style={{ width: '30px', height: '30px' }} src={require('Asset/Image/Public/trace.png')} alt="寻迹" />
                 </div>
             </div>
         </div>

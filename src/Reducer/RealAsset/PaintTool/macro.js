@@ -1,6 +1,6 @@
 import { List, Map } from 'immutable';
 
-const macroReducer = (state, action) => {
+const macroReducer = ({ state, action }) => {
     switch (action.type) {
         case 'PAINTTOOL_MACRO_COLOR':
             return state.set('hex', action.hex);

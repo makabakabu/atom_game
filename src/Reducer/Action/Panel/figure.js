@@ -1,4 +1,4 @@
-const figurePanel = (state = {}, action) => {
+const figurePanel = ({ state, action }) => {
     switch (action.type) {
         default:
             return state;

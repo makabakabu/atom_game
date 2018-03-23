@@ -1,4 +1,4 @@
-const content = (state = {}, action) => {
+const content = ({ state, action }) => {
     switch (action.type) {
         case 'ACTION_SAVE_SCRIPTS':
             return state.setIn(['actionSequence', state.get('focusedAction'), 'scripts'], action.scripts);

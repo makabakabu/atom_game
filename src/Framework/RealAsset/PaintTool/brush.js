@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import TabBar from '../../../Asset/Component/PaintTool/tabBar';
-import Slide from '../../../Asset/Component/PaintTool/slide';
-import ColorPicker from '../../../Asset/Component/PaintTool/colorPicker';
+import TabBar from 'Asset/Component/PaintTool/tabBar';
+import Slide from 'Asset/Component/PaintTool/slide';
+import ColorPicker from 'Asset/Component/PaintTool/colorPicker';
 
 const Brush = ({
     hex, brush, pixelSlide, opacitySlide, colorPicker, colorClick, cuvettePick,

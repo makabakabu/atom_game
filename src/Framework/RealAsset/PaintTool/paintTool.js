@@ -51,7 +51,7 @@ const Item = ({ viewMode, itemName, enter, leave, click }) => (
     <img
       id={itemName}
       style={styles.operationImg}
-      src={require(`../../../Asset/Image/PaintTool/Panel/${itemName + (viewMode === itemName ? '_selected' : '')}.png`)}
+      src={require(`Asset/Image/PaintTool/Panel/${itemName + (viewMode === itemName ? '_selected' : '')}.png`)}
       onMouseEnter={enter({ viewMode: itemName })}
       onMouseLeave={leave({ actualViewMode: viewMode, viewMode: itemName })}
       onClick={click({ viewMode: itemName })}
@@ -121,13 +121,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
     enter: ({ viewMode }) => () => {
-        document.getElementById(viewMode).src = require(`../../../Asset/Image/PaintTool/Panel/${viewMode}_selected.png`);
+        document.getElementById(viewMode).src = require(`Asset/Image/PaintTool/Panel/${viewMode}_selected.png`);
     },
     leave: ({ viewMode, actualViewMode }) => () => {
         if (actualViewMode !== viewMode) {
-            document.getElementById(viewMode).src = require(`../../../Asset/Image/PaintTool/Panel/${viewMode}.png`);
+            document.getElementById(viewMode).src = require(`Asset/Image/PaintTool/Panel/${viewMode}.png`);
         } else {
-            document.getElementById(viewMode).src = require(`../../../Asset/Image/PaintTool/Panel/${viewMode}_selected.png`);
+            document.getElementById(viewMode).src = require(`Asset/Image/PaintTool/Panel/${viewMode}_selected.png`);
         }
     },
     click: ({ viewMode }) => () => {

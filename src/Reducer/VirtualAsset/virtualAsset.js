@@ -1,7 +1,7 @@
 import asset from './asset';
 import paintTool from './PaintTool/paintTool';
 
-const virtualAsset = (state, action) => {
+const virtualAsset = ({ state, action }) => {
     const viewMode = state.get('viewMode');
     let focusedId = state.getIn(['figure', 'focusedFigureId']);
     if (viewMode === 'animate') {
@@ -14,7 +14,7 @@ const virtualAsset = (state, action) => {
     if (focusedFigureId !== '') {
         state = state.updateIn([viewMode, 'sequence', focusedId, 'figure', 'sequence', focusedFigureId, 'paintTool'], value => paintTool(value, action));
     }
-    return asset(state, action);
+    return asset({ state, action });
 };
 
 export default virtualAsset;

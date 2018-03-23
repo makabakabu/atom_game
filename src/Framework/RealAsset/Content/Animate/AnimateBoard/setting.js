@@ -43,7 +43,7 @@ const Setting = ({
                     锁定: <FontAwesomeIcon icon={locked ? faLock : faLockOpen} style={{ color: locked ? '#6a6a6a' : '#ccc' }} onClick={changeState({ kind: 'locked' })} role="presentation" size="lg" />
                 </div>
                 <div style={{ width: '60px', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                    寻迹: <img style={{ width: '30px', height: '30px' }} src={require(`../../../../../Asset/Image/Public/trace${trace ? '_selected' : ''}.png`)} onClick={changeState({ kind: 'trace' })} role="presentation" alt="寻迹" />
+                    寻迹: <img style={{ width: '30px', height: '30px' }} src={require(`Asset/Image/Public/trace${trace ? '_selected' : ''}.png`)} onClick={changeState({ kind: 'trace' })} role="presentation" alt="寻迹" />
                 </div>
             </div>
         </div>

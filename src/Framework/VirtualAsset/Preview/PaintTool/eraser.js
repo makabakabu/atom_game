@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import TabBar from '../../../../Asset/Component/PaintTool/tabBar';
-import Slide from '../../../../Asset/Component/PaintTool/slide';
+import TabBar from 'Asset/Component/PaintTool/tabBar';
+import Slide from 'Asset/Component/PaintTool/slide';
 
 const Eraser = ({ eraser, pixelSlide }) => (
     <div style={styles.main}>

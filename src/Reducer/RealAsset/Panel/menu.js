@@ -1,7 +1,7 @@
 import uuidv4 from 'uuid';
 import { Map, OrderedMap, List } from 'immutable';
 
-const menu = (state = {}, action) => {
+const menu = ({ state, action }) => {
     let contextMenu = state.get('contextMenu');
     switch (action.type) {
         case 'FIGURE_TIPS':

@@ -7,7 +7,7 @@ import eraser from './eraser';
 import picker from './picker';
 import macroReducer from './macro';
 
-const paintTool = (state, action) => {
+const paintTool = ({ state, action }) => {
     switch (action.type) {
         case 'VIRTUALASSET_PAINTTOOL_SELECT':
             if (action.viewMode === 'picker' && state.get('viewMode') !== 'picker') {

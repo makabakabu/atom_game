@@ -1,6 +1,6 @@
 import { Map, OrderedMap, List } from 'immutable';
 
-const menu = (state, action) => {
+const menu = ({ state, action }) => {
     const focusedAnimate = state.getIn(['content', 'animate', 'focusedAnimate']);
     const frameId = state.getIn(['content', 'animate', 'frame', 'focusedFrame']);
     switch (action.type) {
