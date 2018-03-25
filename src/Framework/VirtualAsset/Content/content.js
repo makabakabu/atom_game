@@ -33,9 +33,13 @@ const Content = ({ isFocused, scripts, saveScript }) => (
 );
 
 Content.propTypes = {
-    scripts: PropTypes.string.isRequired,
+    scripts: PropTypes.string,
     saveScript: PropTypes.func.isRequired,
     isFocused: PropTypes.bool.isRequired,
+};
+
+Content.defaultProps = {
+    scripts: '',
 };
 
 const styles = {

@@ -30,6 +30,7 @@
         "react-color": "^2.13.8",
         "react-contextmenu": "^2.9.2",
         "react-dom": "^16.2.0",
+        "react-draggable": "^3.0.5",
         "react-hotkeys": "^0.10.0",
         "react-immutable-proptypes": "^2.1.0",
         "react-redux": "^5.0.6",

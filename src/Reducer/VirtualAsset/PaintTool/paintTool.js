@@ -16,14 +16,14 @@ const paintTool = ({ state, action }) => {
             return state.set('viewMode', action.viewMode);
 
         default:
-            state = state.update('cursor', value => cursor(value, action));
-            state = state.update('region', value => region(value, action));
-            state = state.update('brush', value => brush(value, action));
-            state = state.update('shape', value => shape(value, action));
-            state = state.update('bucket', value => bucket(value, action));
-            state = state.update('eraser', value => eraser(value, action));
-            state = state.update('macro', value => macroReducer(value, action));
-            return state.update('picker', value => picker(value, action));
+            state = state.update('cursor', value => cursor({ state: value, action }));
+            state = state.update('region', value => region({ state: value, action }));
+            state = state.update('brush', value => brush({ state: value, action }));
+            state = state.update('shape', value => shape({ state: value, action }));
+            state = state.update('bucket', value => bucket({ state: value, action }));
+            state = state.update('eraser', value => eraser({ state: value, action }));
+            state = state.update('macro', value => macroReducer({ state: value, action }));
+            return state.update('picker', value => picker({ state: value, action }));
     }
 };
 

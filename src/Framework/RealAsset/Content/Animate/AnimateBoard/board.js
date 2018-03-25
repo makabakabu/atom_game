@@ -7,11 +7,10 @@ import uuidv4 from 'uuid';
 // 1. 判断width， height应有的长度
 // 整体的scale，和frame个体的scale
 
-const Board = ({ frame, isFocused, value, color }) => (
+const Board = ({ frame, isFocused, value, color, scale }) => (
     <div
-      style={{ ...styles.main, height: `${4.8 * value.size}px`, width: `${4.8 * value.get(0).size}px`,
+      style={{ ...styles.main, height: `${4.8 * value.size * scale * frame.getIn(['functionPanel', 'shrink'])}px`, width: `${4.8 * value.get(0).size * scale * frame.getIn(['functionPanel', 'shrink'])}px`,
         zIndex: isFocused ? 1 : 0, transform: `rotate(${frame.getIn(['functionPanel', 'angle'])}deg)
-        scale(${frame.getIn(['functionPanel', 'shrink'])}, ${frame.getIn(['functionPanel', 'shrink'])})
         translate(${frame.getIn(['functionPanel', 'position', 'x']) * 4.8}px, -${frame.getIn(['functionPanel', 'position', 'y']) * 4.8}px)`,
       }}
     >
@@ -34,6 +33,7 @@ Board.propTypes = {
     value: ImmutablePropTypes.list.isRequired,
     isFocused: PropTypes.bool.isRequired,
     color: PropTypes.func.isRequired,
+    scale: PropTypes.number.isRequired,
 };
 
 const styles = {
@@ -45,6 +45,7 @@ const styles = {
         position: 'absolute',
         left: 0,
         bottom: 0,
+        boxShadow: '0 2px 8px #aaa',
     },
 };
 
@@ -55,6 +56,7 @@ const mapStateToProps = (state, ownProps) => {
         frame,
         value: state.getIn(['realAsset', 'figuresGroup', frame.get('figureId'), 'status', frame.get('statusId'), 'value']),
         isFocused: state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).includes(ownProps.frameId),
+        scale: state.getIn(['realAsset', 'figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'scale']),
     };
 };
 

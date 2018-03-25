@@ -12,7 +12,7 @@ const virtualAsset = ({ state, action }) => {
         focusedFigureId = state.getIn([viewMode, 'sequence', focusedId, 'figure', 'focusedFigureId']);
     }
     if (focusedFigureId !== '') {
-        state = state.updateIn([viewMode, 'sequence', focusedId, 'figure', 'sequence', focusedFigureId, 'paintTool'], value => paintTool(value, action));
+        state = state.updateIn([viewMode, 'sequence', focusedId, 'figure', 'sequence', focusedFigureId, 'paintTool'], value => paintTool({ state: value, action }));
     }
     return asset({ state, action });
 };

@@ -13,7 +13,7 @@ const Figure = ({ figureId, name, visibility, viewMode, changeName,
 }) => (
     <div id={figureId} style={styles.main} >
         <div id={`${figureId}figure`} style={styles.figure} onContextMenu={contextMenu}>
-            <FontAwesomeIcon icon={faChevronDown} id={`${figureId}pullDown`} style={{ ...styles.pullDown, transform: visibility ? 'rotateX(0deg)' : 'rotateX(180deg)' }} onClick={event => pullDown({ event, visibility })} role="presentation" />
+            <FontAwesomeIcon icon={faChevronDown} id={`${figureId}pullDown`} style={{ ...styles.pullDown, transform: visibility ? 'rotate(0deg)' : 'rotate(-90deg)' }} onClick={event => pullDown({ event, visibility })} role="presentation" />
             <div style={{ display: 'flex', alignItems: 'center', width: '80%' }}>
                 <input style={{ ...styles.title, width: `${(stringWidth(name) * 8) + 5}px` }} value={name} onChange={event => changeName({ event })} />
             </div>
@@ -81,6 +81,7 @@ let styles = {
     addStatus: {
         color: '#aaa',
         fontSize: '16px',
+        fontWeight: 'lighter',
         width: '10%',
         cursor: 'pointer',
         transition: 'all 0.1s ease-in-out',
