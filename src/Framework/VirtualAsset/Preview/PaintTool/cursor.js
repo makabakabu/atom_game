@@ -13,14 +13,14 @@ const Cursor = ({
 }) => (
     <div style={styles.main}>
         <TabBar name="选择" color="#ccc" />
-        <div style={{ width: '200px', height: '30px', marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ width: 200, height: 30, marginTop: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             模式：
             <div style={{ width: '80%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                <img style={{ width: '25px', height: '25px' }} src={require(`Asset/Image/PaintTool/Cursor/outline${cursor.get('mode') === 'outline' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'outline' })} alt="轮廓" role="presentation" />
-                <img style={{ width: '25px', height: '25px' }} src={require(`Asset/Image/PaintTool/Cursor/singleColor${cursor.get('mode') === 'singleColor' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'singleColor' })} alt="单色" role="presentation" />
+                <img style={{ width: 25, height: 25 }} src={require(`Asset/Image/PaintTool/Cursor/outline${cursor.get('mode') === 'outline' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'outline' })} alt="轮廓" role="presentation" />
+                <img style={{ width: 25, height: 25 }} src={require(`Asset/Image/PaintTool/Cursor/singleColor${cursor.get('mode') === 'singleColor' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'singleColor' })} alt="单色" role="presentation" />
             </div>
         </div>
-        <div style={{ width: '200px', height: '100px', marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ width: 200, height: 100, marginTop: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             { cursor.getIn(['position', 'viewMode']) === 'location' ? '位置: ' : '尺寸: ' }
             <div style={{ width: '80%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Position viewMode={cursor.getIn(['position', 'viewMode'])} bracket={cursor.getIn(['position', 'bracket'])} operationMouseDown={operationMouseDown} operationMouseUp={operationMouseUp} positionChangeViewMode={positionChangeViewMode} bracketSelect={bracketSelect} />
@@ -77,39 +77,39 @@ Cursor.propTypes = {
 const styles = {
     main: {
         width: '90%',
-        fontSize: '13px',
+        fontSize: 13,
         color: '#aaa',
     },
     rotate: {
-        height: '50px',
+        height: 50,
         width: '100%',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
     rotateImg: {
-        width: '23px',
-        height: '23px',
+        width: 23,
+        height: 23,
         cursor: 'pointer',
     },
     flipHorizontal: {
-        width: '20px',
+        width: 20,
         cursor: 'pointer',
-        marginLeft: '15px',
+        marginLeft: 15,
     },
     flipVertical: {
-        width: '20px',
+        width: 20,
         transform: 'rotate(90deg)',
         cursor: 'pointer',
     },
     input: {
         border: 'none',
-        borderRadius: '2px',
+        borderRadius: 2,
         boxShadow: '0 0 4px rgba(250, 0, 0, 0.5)',
-        margin: '2px',
-        width: '30px',
-        height: '15px',
-        fontSize: '12px',
+        margin: 2,
+        width: 30,
+        height: 15,
+        fontSize: 12,
         textAlign: 'center',
         color: '#aaa',
         transition: 'all 0.3s ease-out',

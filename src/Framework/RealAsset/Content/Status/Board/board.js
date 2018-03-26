@@ -22,7 +22,7 @@ const Board = ({
     return (
         <div style={{ height: document.documentElement.clientHeight - 100, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
             <div style={styles.main}>
-                <div id={`${statusId}board`} style={{ ...styles.board, height: `${borderHeight}px`, width: `${borderWidth}px` }} >
+                <div id={`${statusId}board`} style={{ ...styles.board, height: borderHeight, width: borderWidth }} >
                     {
                         valueList.map((row, rowIndex) => row.map((cell, colIndex) => (<Cell
                           key={`${rowIndex}_${colIndex}`}
@@ -53,9 +53,9 @@ let styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '426.6px',
-        width: '640px',
-        marginTop: '20px',
+        height: 426.6,
+        width: 640,
+        marginTop: 20,
     },
     board: {
         display: 'flex',

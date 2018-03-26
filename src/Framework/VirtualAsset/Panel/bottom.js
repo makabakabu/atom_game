@@ -41,21 +41,21 @@ let styles = {
         width: '80%',
     },
     choice: {
-        height: '30px',
-        width: '35px',
+        height: 30,
+        width: 35,
         cursor: 'pointer',
-        marginLeft: '10px',
+        marginLeft: 10,
         border: 'none',
-        fontSize: '12px',
+        fontSize: 12,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: '10px',
+        borderRadius: 10,
     },
     addAsset: {
         cursor: 'pointer',
         color: '#aaa',
-        fontSize: '16px',
+        fontSize: 16,
         width: '10%',
         transition: 'all 0.1s ease-in-out',
     },
@@ -67,7 +67,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => {
     const mouseupListener = () => {
-        document.getElementById('addAsset').style.fontSize = '16px';
+        document.getElementById('addAsset').style.fontSize = 16;
         document.removeEventListener('mouseup', mouseupListener, true);
     };
     return {
@@ -78,7 +78,7 @@ const mapDispatchToProps = (dispatch) => {
             });
         },
         addAsset: () => {
-            document.getElementById('addAsset').style.fontSize = '10px';
+            document.getElementById('addAsset').style.fontSize = 10;
             document.addEventListener('mouseup', mouseupListener, true);
             dispatch({
                 type: 'VIRTUALASSET_ADD_ASSET',

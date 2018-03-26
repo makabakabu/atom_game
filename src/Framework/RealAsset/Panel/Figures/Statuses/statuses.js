@@ -9,7 +9,7 @@ const Statuses = ({ figureId, visibility, animateLocked, statusList, panelSort }
     <div
       id={`${figureId}statuses`}
       style={{ width: '100%', transition: 'height 0.4s ease-out',
-        height: visibility ? `${statusList.length * 35}px` : '0px', overflow: 'hidden' }}
+        height: visibility ? statusList.length * 35 : 0, overflow: 'hidden' }}
     >
         <SortableList id="figuresGroup" figureId={figureId} items={statusList} onSortEnd={({ oldIndex, newIndex }, event) => panelSort({ event, animateLocked, figureId, oldIndex, newIndex })} pressDelay={200} transitionDuration={100} />
     </div>

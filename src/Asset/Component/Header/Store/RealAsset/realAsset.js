@@ -40,7 +40,7 @@ const RealAsset = ({ data, hover, panelSort, deleteHover, deleteUnhover, deleteR
                 <div style={{ width: '100%', height: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img
                       src={require('Asset/Image/Public/trash.png')}
-                      style={{ width: '30px', height: '30px' }}
+                      style={{ width: 30, height: 30 }}
                       onMouseEnter={event => deleteHover({ event })}
                       onMouseLeave={event => deleteUnhover({ event })}
                       alt="垃圾桶"
@@ -70,7 +70,7 @@ const SortableList = SortableContainer(({ items }) => (
 ));
 
 const SortableItem = SortableElement(({ figure }) => (
-    <div key={uuidv4()} style={{ width: '102px', height: '102px', marginLeft: '5px', backgroundColor: '#ededed', zIndex: 1000 }}>
+    <div key={uuidv4()} style={{ width: 102, height: 102, marginLeft: 5, backgroundColor: '#ededed', zIndex: 1000 }}>
         {
             figure.get('status').size > 0 && <Board figure={figure} />
         }

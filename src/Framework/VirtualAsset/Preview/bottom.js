@@ -7,8 +7,8 @@ import { message } from 'antd';
 
 const Bottom = ({ focusedId, color, changeViewMode, addFigure }) => (
     <div style={styles.main}>
-        <FontAwesomeIcon icon={faEye} style={{ color, fontSize: '20px', display: 'flex', justifyContent: 'center', width: '90%', cursor: 'pointer' }} onMouseDown={changeViewMode({ focusedId })} role="presentation" />
-        <FontAwesomeIcon id="addFigure" icon={faPlus} style={{ color: '#aaa', fontSize: '16px', cursor: 'pointer', transition: 'all 0.1s ease-in-out' }} onMouseDown={addFigure({ focusedId })} />
+        <FontAwesomeIcon icon={faEye} style={{ color, fontSize: 20, display: 'flex', justifyContent: 'center', width: '90%', cursor: 'pointer' }} onMouseDown={changeViewMode({ focusedId })} role="presentation" />
+        <FontAwesomeIcon id="addFigure" icon={faPlus} style={{ color: '#aaa', fontSize: 16, cursor: 'pointer', transition: 'all 0.1s ease-in-out' }} onMouseDown={addFigure({ focusedId })} />
     </div>
 );
 
@@ -22,7 +22,7 @@ Bottom.propTypes = {
 let styles = {
     main: {
         width: '100%',
-        height: '30px',
+        height: 30,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     const mouseupListener = () => {
-        document.getElementById('addFigure').style.fontSize = '16px';
+        document.getElementById('addFigure').style.fontSize = 16;
         document.removeEventListener('mouseup', mouseupListener, true);
     };
     return {
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch) => {
             }
         },
         addFigure: ({ focusedId }) => () => {
-            document.getElementById('addFigure').style.fontSize = '10px';
+            document.getElementById('addFigure').style.fontSize = 10;
             document.addEventListener('mouseup', mouseupListener, true);
             if (focusedId !== '') {
                 dispatch({

@@ -18,8 +18,8 @@ Panel.propTypes = {
 const style = {
     display: 'flex',
     flexDirection: 'column',
-    width: '238px',
-    marginLeft: '8px',
+    width: 238,
+    marginLeft: 8,
 };
 
 const mapStateToProps = state => ({

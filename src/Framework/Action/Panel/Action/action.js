@@ -14,7 +14,7 @@ const Action = ({ actionId, name, isAction, mouseDown, mouseEnter, mouseLeave, c
             <div style={{ width: '80%', display: 'flex', justifyContent: 'center' }}>
                 <input
                   id={`${actionId}title`}
-                  style={{ ...styles.title, width: `${(stringWidth(name) * 8) + 8}px` }}
+                  style={{ ...styles.title, width: (stringWidth(name) * 8) + 8 }}
                   value={name}
                   onChange={changeName}
                 />
@@ -37,7 +37,7 @@ Action.propTypes = {
 let styles = {
     main: {
         width: '100%',
-        height: '35px',
+        height: 35,
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -50,7 +50,7 @@ let styles = {
         border: 'none',
         backgroundColor: 'transparent',
         color: '#888',
-        fontSize: '14px',
+        fontSize: 14,
         fontWeight: 'bold',
         cursor: 'pointer',
         textAlign: 'center',

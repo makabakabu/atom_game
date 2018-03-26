@@ -12,7 +12,7 @@ const ProgressControl = ({ execute, changeExecute }) => (
             <Slider trackStyle={[{ backgroundColor: '#aaa' }]} dotStyle={{ backgroundColor: '#aaa' }} style={{ width: '98%' }} />
         </div>
         <div style={styles.progressControl}>
-            <div style={{ width: '150px', display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ width: 150, display: 'flex', justifyContent: 'space-between' }}>
                 <FontAwesomeIcon icon={faBackward} size="lg" />
                 <FontAwesomeIcon icon={execute ? faPause : faPlay} size="lg" onClick={changeExecute} />
                 <FontAwesomeIcon icon={faForward} size="lg" />

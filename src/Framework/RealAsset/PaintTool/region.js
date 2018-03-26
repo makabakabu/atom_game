@@ -6,18 +6,18 @@ import TabBar from 'Asset/Component/PaintTool/tabBar';
 const Region = ({
     viewMode, mode, selectViewMode, selectMode,
 }) => (
-    <div style={{ width: '90%', fontSize: '13px', color: '#aaa' }}>
+    <div style={{ width: '90%', fontSize: 13, color: '#aaa' }}>
         <TabBar name="选区" color="#ccc" />
         <div style={styles.createRegion}>
             <Item realViewMode={viewMode} viewMode="create" viewName="新建" selectViewMode={selectViewMode} />
             <Item realViewMode={viewMode} viewMode="plus" viewName="合并" selectViewMode={selectViewMode} />
             <Item realViewMode={viewMode} viewMode="minus" viewName="相减" selectViewMode={selectViewMode} />
         </div>
-        <div style={{ width: '200px', height: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ width: 200, height: 30, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             模式：
             <div style={{ width: '80%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                <img style={{ width: '22px', height: '22px' }} src={require(`Asset/Image/PaintTool/Region/outline${mode === 'outline' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'outline' })} alt="轮廓" role="presentation" />
-                <img style={{ width: '22px', height: '22px' }} src={require(`Asset/Image/PaintTool/Region/pixel${mode === 'pixel' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'pixel' })} alt="单色" role="presentation" />
+                <img style={{ width: 22, height: 22 }} src={require(`Asset/Image/PaintTool/Region/outline${mode === 'outline' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'outline' })} alt="轮廓" role="presentation" />
+                <img style={{ width: 22, height: 22 }} src={require(`Asset/Image/PaintTool/Region/pixel${mode === 'pixel' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'pixel' })} alt="单色" role="presentation" />
             </div>
         </div>
     </div>
@@ -37,12 +37,12 @@ const Item = ({
         <img
           role="presentation"
           draggable={false}
-          style={{ width: '25px', height: '25px' }}
+          style={{ width: 25, height: 25 }}
           src={require(`Asset/Image/PaintTool/Region/${viewMode}${realViewMode === viewMode ? '_selected' : ''}.png`)}
           onClick={selectViewMode({ viewMode })}
           alt="底部"
         />
-        <div style={{ fontSize: '8px', color: realViewMode === viewMode ? '#aaa' : '#ccc' }}>  { viewName }  </div>
+        <div style={{ fontSize: 8, color: realViewMode === viewMode ? '#aaa' : '#ccc' }}>  { viewName }  </div>
     </div>
 );
 
@@ -55,8 +55,8 @@ Item.propTypes = {
 
 const styles = {
     createRegion: {
-        marginTop: '10px',
-        height: '100px',
+        marginTop: 10,
+        height: 100,
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -64,7 +64,7 @@ const styles = {
         color: '#ccc',
     },
     item: {
-        height: '50px',
+        height: 50,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

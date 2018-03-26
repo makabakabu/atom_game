@@ -24,29 +24,29 @@ const Shape = ({
             <TabBar name="形状" color="#ccc" />
             <div style={styles.shapeSelect}>
                 <div style={styles.shapeSelectItem} onClick={selectViewMode({ viewMode: 'rectangle' })} role="presentation">
-                    <div style={{ width: '26px', height: '20px', marginTop: '3px', backgroundColor: viewMode === 'rectangle' ? `${shape.getIn(['rectangle', 'fill', 'selected']) ? shape.getIn(['rectangle', 'fill', 'hex']) : 'transparent'}` : '#ccc', border: (viewMode === 'rectangle' && shape.getIn(['rectangle', 'stroke', 'selected'])) ? `1px solid ${shape.getIn(['rectangle', 'stroke', 'hex'])}` : 'transparent' }} />
-                    <div style={{ fontSize: '8px' }}>  矩形  </div>
+                    <div style={{ width: 26, height: 20, marginTop: 3, backgroundColor: viewMode === 'rectangle' ? `${shape.getIn(['rectangle', 'fill', 'selected']) ? shape.getIn(['rectangle', 'fill', 'hex']) : 'transparent'}` : '#ccc', border: (viewMode === 'rectangle' && shape.getIn(['rectangle', 'stroke', 'selected'])) ? `1px solid ${shape.getIn(['rectangle', 'stroke', 'hex'])}` : 'transparent' }} />
+                    <div style={{ fontSize: 8 }}>  矩形  </div>
                 </div>
                 <div style={styles.shapeSelectItem} onClick={selectViewMode({ viewMode: 'elipse' })} role="presentation">
                     <div style={{
-                        width: '26px', height: '20px', borderRadius: '100%/100%', marginTop: '3px',
+                        width: 26, height: 20, borderRadius: '100%/100%', marginTop: 3,
                         backgroundColor: viewMode === 'elipse' ? `${shape.getIn(['elipse', 'fill', 'selected']) ? shape.getIn(['elipse', 'fill', 'hex']) : 'transparent'}` : '#ccc', border: (viewMode === 'elipse' && shape.getIn(['elipse', 'stroke', 'selected'])) ? `1px solid ${shape.getIn(['elipse', 'stroke', 'hex'])}` : 'transparent' }}
                     />
-                    <div style={{ fontSize: '8px' }}>  椭圆  </div>
+                    <div style={{ fontSize: 8 }}>  椭圆  </div>
                 </div>
                 <div style={styles.shapeSelectItem} onClick={selectViewMode({ viewMode: 'polygon' })} role="presentation">
-                    <div id="rotateImage" style={{ width: '26px', height: '26px', backgroundColor: viewMode === 'polygon' ? `${shape.getIn(['polygon', 'stroke', 'selected']) ? shape.getIn(['polygon', 'stroke', 'hex']) : 'transparent'}` : '#ccc', clipPath: `polygon(${edgeShapeMap[shape.getIn(['polygon', 'edges'])]})` }} onMouseDown={rotateOperation} role="presentation">
-                        <div style={{ zIndex: 10, width: '24px', height: '24px', marginLeft: '1px', marginTop: '1px', backgroundColor: viewMode === 'polygon' ? `${shape.getIn(['polygon', 'fill', 'selected']) ? shape.getIn(['polygon', 'fill', 'hex']) : 'white'}` : '#ccc', clipPath: `polygon(${edgeShapeMap[shape.getIn(['polygon', 'edges'])]})` }} >
+                    <div id="rotateImage" style={{ width: 26, height: 26, backgroundColor: viewMode === 'polygon' ? `${shape.getIn(['polygon', 'stroke', 'selected']) ? shape.getIn(['polygon', 'stroke', 'hex']) : 'transparent'}` : '#ccc', clipPath: `polygon(${edgeShapeMap[shape.getIn(['polygon', 'edges'])]})` }} onMouseDown={rotateOperation} role="presentation">
+                        <div style={{ zIndex: 10, width: 24, height: 24, marginLeft: 1, marginTop: 1, backgroundColor: viewMode === 'polygon' ? `${shape.getIn(['polygon', 'fill', 'selected']) ? shape.getIn(['polygon', 'fill', 'hex']) : 'white'}` : '#ccc', clipPath: `polygon(${edgeShapeMap[shape.getIn(['polygon', 'edges'])]})` }} >
                             {
-                                (viewMode === 'polygon') && <img draggable={false} style={{ zIndex: 100, width: '22px', height: '22px', marginTop: '1px', marginLeft: '1px', transform: `rotate(${(shape.getIn(['polygon', 'edges']) - 3) * 90}deg)` }} src={require('Asset/Image/PaintTool/Shape/circle.png')} alt="circle" />
+                                (viewMode === 'polygon') && <img draggable={false} style={{ zIndex: 100, width: 22, height: 22, marginTop: 1, marginLeft: 1, transform: `rotate(${(shape.getIn(['polygon', 'edges']) - 3) * 90}deg)` }} src={require('Asset/Image/PaintTool/Shape/circle.png')} alt="circle" />
                             }
                         </div>
                     </div>
-                    <div style={{ fontSize: '12px' }}>  {viewMode === 'polygon' ? edgeMap[shape.getIn(['polygon', 'edges'])] : '多边形'} </div>
+                    <div style={{ fontSize: 12 }}>  {viewMode === 'polygon' ? edgeMap[shape.getIn(['polygon', 'edges'])] : '多边形'} </div>
                 </div>
             </div>
             <div style={styles.column} />
-            <div style={{ marginTop: '15px' }}>
+            <div style={{ marginTop: 15 }}>
                 <div style={{ width: '100%', color: '#ccc' }}>
                     <input
                       type="checkbox"
@@ -60,7 +60,7 @@ const Shape = ({
                 <ColorPicker hex={shape.getIn([viewMode, 'stroke', 'hex'])} colorClick={colorClick} isClick={shape.getIn([viewMode, 'stroke', 'colorPicker'])} colorPicker={colorPicker} kind="stroke" opacity={shape.getIn([viewMode, 'stroke', 'opacity'])} />
             </div>
             <div style={styles.column} />
-            <div style={{ marginTop: '15px' }}>
+            <div style={{ marginTop: 15 }}>
                 <div style={{ width: '100%', color: '#ccc' }}>
                     <input
                       type="checkbox"
@@ -89,12 +89,12 @@ Shape.propTypes = {
 const styles = {
     main: {
         width: '90%',
-        fontSize: '13px',
+        fontSize: 13,
         color: '#aaa',
     },
     shapeSelect: {
-        marginTop: '10px',
-        height: '80px',
+        marginTop: 10,
+        height: 80,
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -102,7 +102,7 @@ const styles = {
         color: '#ccc',
     },
     shapeSelectItem: {
-        height: '45px',
+        height: 45,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -110,10 +110,10 @@ const styles = {
     },
     column: {
         width: '100%',
-        height: '1px',
+        height: 1,
         boxShadow: '0px 1px 1px #ededed',
-        margin: '2px',
-        marginTop: '15px',
+        margin: 2,
+        marginTop: 15,
     },
 };
 

@@ -22,7 +22,7 @@ const Menu = ({ enterLeave, edit, duplicate, loopVisibility, loop, settingOk, se
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faPencilAlt} size="lg" />
-                        <div style={{ marginLeft: '2px', fontSize: '14px' }}>
+                        <div style={{ marginLeft: 2, fontSize: 14 }}>
                             编辑
                         </div>
                     </div>
@@ -37,7 +37,7 @@ const Menu = ({ enterLeave, edit, duplicate, loopVisibility, loop, settingOk, se
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faClone} size="lg" />
-                        <div style={{ marginLeft: '2px', fontSize: '14px' }}>
+                        <div style={{ marginLeft: 2, fontSize: 14 }}>
                             副本
                         </div>
                     </div>
@@ -52,7 +52,7 @@ const Menu = ({ enterLeave, edit, duplicate, loopVisibility, loop, settingOk, se
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faCircleNotch} size="lg" />
-                        <div style={{ marginLeft: '2px', fontSize: '14px' }}>
+                        <div style={{ marginLeft: 2, fontSize: 14 }}>
                             循环
                         </div>
                     </div>
@@ -98,9 +98,9 @@ Menu.propTypes = {
 
 let styles = {
     main: {
-        width: '120px',
-        height: '100px',
-        borderRadius: '5px',
+        width: 120,
+        height: 100,
+        borderRadius: 5,
         boxShadow: '0px 1px 10px #707070',
         cursor: 'pointer',
         alignItems: 'center',
@@ -110,13 +110,13 @@ let styles = {
         zIndex: 100,
     },
     container: {
-        width: '120px',
-        height: '90px',
-        paddingTop: '5px',
+        width: 120,
+        height: 90,
+        paddingTop: 5,
     },
     menu: {
-        width: '120px',
-        height: '30px',
+        width: 120,
+        height: 30,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -155,12 +155,12 @@ const mapDispatchToProps = dispatch => ({
         });
         await new Promise((resolve) => {
             document.getElementById(newId).style.transition = 'all 0s ease-out';
-            document.getElementById(newId).style.width = '0px';
+            document.getElementById(newId).style.width = 0;
             setTimeout(() => {
                 resolve(true);
             }, 10);
         });
-        document.getElementById(newId).style.width = '100px';
+        document.getElementById(newId).style.width = 100;
         document.getElementById(newId).style.transition = 'all 0.4s ease-out';
     },
     loopVisibility: () =>

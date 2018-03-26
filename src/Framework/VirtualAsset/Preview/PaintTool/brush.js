@@ -9,7 +9,7 @@ import ColorPicker from 'Asset/Component/PaintTool/colorPicker';
 const Brush = ({
     hex, brush, pixelSlide, opacitySlide, colorPicker, colorClick, cuvettePick,
 }) => (
-    <div style={{ width: '90%', fontSize: '13px', color: '#aaa' }}>
+    <div style={{ width: '90%', fontSize: 13, color: '#aaa' }}>
         <TabBar name="画笔" color="#ccc" />
         <Slide titleName="像素大小" titleValue={`${brush.get('pixelSize')}px`} value={brush.get('pixelSize')} onChange={pixelSlide} max={10} />
         <Slide titleName="不透明度" titleValue={`${brush.get('opacity') * 100}%`} value={brush.get('opacity') * 100} onChange={opacitySlide} />

@@ -15,7 +15,7 @@ const Figure = ({ figureId, name, visibility, viewMode, changeName,
         <div id={`${figureId}figure`} style={styles.figure} onContextMenu={contextMenu}>
             <FontAwesomeIcon icon={faChevronDown} id={`${figureId}pullDown`} style={{ ...styles.pullDown, transform: visibility ? 'rotate(0deg)' : 'rotate(-90deg)' }} onClick={event => pullDown({ event, visibility })} role="presentation" />
             <div style={{ display: 'flex', alignItems: 'center', width: '80%' }}>
-                <input style={{ ...styles.title, width: `${(stringWidth(name) * 8) + 5}px` }} value={name} onChange={event => changeName({ event })} />
+                <input style={{ ...styles.title, width: (stringWidth(name) * 8) + 5 }} value={name} onChange={event => changeName({ event })} />
             </div>
             <FontAwesomeIcon icon={faPlus} id={`${figureId}addStatus`} style={styles.addStatus} onMouseDown={addElement({ viewMode })} role="presentation" />
         </div>
@@ -50,7 +50,7 @@ let styles = {
     },
     figure: {
         width: '100%',
-        height: '43px',
+        height: 43,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -63,24 +63,24 @@ let styles = {
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: '5%',
-        fontSize: '16px',
+        fontSize: 16,
         cursor: 'pointer',
         color: '#aaa',
         transition: 'all 0.4s ease-out',
     },
     title: {
-        marginLeft: '10px',
+        marginLeft: 10,
         border: 'none',
         backgroundColor: 'transparent',
         color: '#888',
-        fontSize: '16px',
+        fontSize: 16,
         cursor: 'pointer',
         textAlign: 'text',
         fontWeight: 'bold',
     },
     addStatus: {
         color: '#aaa',
-        fontSize: '16px',
+        fontSize: 16,
         fontWeight: 'lighter',
         width: '10%',
         cursor: 'pointer',
@@ -96,7 +96,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     const mouseupListener = () => {
-        document.getElementById(`${ownProps.figureId}addStatus`).style.fontSize = '16px';
+        document.getElementById(`${ownProps.figureId}addStatus`).style.fontSize = 16;
         document.removeEventListener('mouseup', mouseupListener, true);
     };
     return {
@@ -133,7 +133,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 figureId: ownProps.figureId,
                 visibility: true,
             });
-            document.getElementById(`${ownProps.figureId}addStatus`).style.fontSize = '10px';
+            document.getElementById(`${ownProps.figureId}addStatus`).style.fontSize = 10;
             document.addEventListener('mouseup', mouseupListener, true);
         },
     };

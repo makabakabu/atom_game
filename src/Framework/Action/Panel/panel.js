@@ -26,17 +26,17 @@ const Panel = ({ actionSequence, options, actionList, changeActionInfo, actionMa
               cancelText="取消"
             >
                 <div>
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                         资源一：<Cascader value={actionSequence.getIn(['crash', 'temp', 'asset1'])} options={options} placeholder="选择资源一" style={{ width: 295 }} onChange={value => changeActionInfo({ path: ['crash', 'temp', 'asset1'], value })} />
                     </div>
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                         资源二：<Cascader value={actionSequence.getIn(['crash', 'temp', 'asset2'])} options={options} placeholder="选择资源二" style={{ width: 295 }} onChange={value => changeActionInfo({ path: ['crash', 'temp', 'asset2'], value })} />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             次数：<AutoComplete value={actionSequence.getIn(['crash', 'temp', 'num'])} dataSource={['单次', '永远']} placeholder="永远" style={{ width: 100 }} onChange={value => changeActionInfo({ path: ['crash', 'temp', 'num'], value })} />
                         </div>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             事件名: <Input value={actionSequence.getIn(['crash', 'temp', 'name'])} placeholder="事件一" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['crash', 'temp', 'name'], value: event.target.value })} />
                         </div>
                     </div>
@@ -52,14 +52,14 @@ const Panel = ({ actionSequence, options, actionList, changeActionInfo, actionMa
               cancelText="取消"
             >
                 <div>
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                         绑定：<Cascader value={actionSequence.getIn(['click', 'temp', 'asset'])} options={options} placeholder="选择绑定资源" style={{ width: 295 }} onChange={value => changeActionInfo({ path: ['click', 'temp', 'asset'], value })} />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             类型：<AutoComplete value={actionSequence.getIn(['click', 'temp', 'kind'])} dataSource={['左键', '右键']} placeholder="左键" style={{ width: 100 }} onChange={value => changeActionInfo({ path: ['click', 'temp', 'kind'], value })} />
                         </div>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             事件名: <Input value={actionSequence.getIn(['click', 'temp', 'name'])} placeholder="事件一" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['click', 'temp', 'name'], value: event.target.value })} />
                         </div>
                     </div>
@@ -76,15 +76,15 @@ const Panel = ({ actionSequence, options, actionList, changeActionInfo, actionMa
             >
                 <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             键位：<Input value={actionSequence.getIn(['keyboard', 'temp', 'key'])} style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['keyboard', 'temp', 'key'], value: event.target.value })} />
                         </div>
-                        <div value={actionSequence.getIn(['keyboard', 'temp', 'kind'])} style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div value={actionSequence.getIn(['keyboard', 'temp', 'kind'])} style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             类型：<AutoComplete dataSource={['单次', '持续']} placeholder="单次" style={{ width: 100 }} onChange={value => changeActionInfo({ path: ['keyboard', 'temp', 'kind'], value })} />
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             事件名: <Input value={actionSequence.getIn(['keyboard', 'temp', 'name'])} placeholder="事件一" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['keyboard', 'temp', 'name'], value: event.target.value })} />
                         </div>
                     </div>
@@ -100,19 +100,19 @@ const Panel = ({ actionSequence, options, actionList, changeActionInfo, actionMa
               cancelText="取消"
             >
                 <div>
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                         绑定：<Cascader value={actionSequence.getIn(['time', 'temp', 'asset'])} options={options} placeholder="选择绑定事件" style={{ width: 295 }} onChange={value => changeActionInfo({ path: ['time', 'temp', 'asset'], value })} />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             开始：<Input value={actionSequence.getIn(['time', 'temp', 'start'])} placeholder="开始时间点" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['time', 'temp', 'start'], value: event.target.value })} />
                         </div>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             结束：<Input value={actionSequence.getIn(['time', 'temp', 'end'])} placeholder="结束时间点" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['time', 'temp', 'end'], value: event.target.value })} />
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             事件名: <Input value={actionSequence.getIn(['time', 'temp', 'name'])} placeholder="事件一" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['time', 'temp', 'name'], value: event.target.value })} />
                         </div>
                     </div>
@@ -128,22 +128,22 @@ const Panel = ({ actionSequence, options, actionList, changeActionInfo, actionMa
               cancelText="取消"
             >
                 <div>
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                         资源一：<Cascader value={actionSequence.getIn(['location', 'temp', 'asset1'])} options={options} placeholder="选择资源一" style={{ width: 295 }} onChange={value => changeActionInfo({ path: ['location', 'temp', 'asset1'], value })} />
                     </div>
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                         资源二：<Cascader value={actionSequence.getIn(['location', 'temp', 'asset2'])} options={options} placeholder="选择资源二" style={{ width: 295 }} onChange={value => changeActionInfo({ path: ['location', 'temp', 'asset2'], value })} />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             起点：<Input value={actionSequence.getIn(['location', 'temp', 'start'])} placeholder="地点起点" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['location', 'temp', 'start'], value: event.target.value })} />
                         </div>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             终点: <Input value={actionSequence.getIn(['location', 'temp', 'end'])} placeholder="地点终点" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['location', 'temp', 'end'], value: event.target.value })} />
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <div style={{ width: '45%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                             事件名: <Input value={actionSequence.getIn(['location', 'temp', 'name'])} placeholder="事件一" style={{ width: 100 }} onChange={event => changeActionInfo({ path: ['location', 'temp', 'name'], value: event.target.value })} />
                         </div>
                     </div>
@@ -178,8 +178,8 @@ const SortableItem = SortableElement(({ actionName, actionMap }) => <ActionsGrou
 let styles = {
     main: {
         height: document.documentElement.clientHeight - 98,
-        width: '238px',
-        marginRight: '10px',
+        width: 238,
+        marginRight: 10,
         overflowY: 'auto',
     },
 };

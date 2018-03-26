@@ -35,22 +35,22 @@ Logo.propTypes = {
 
 const styles = {
     logo: {
-        height: '80px',
-        width: '250px',
+        height: 80,
+        width: 250,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
     },
     logo_img: {
-        height: '60px',
-        width: '60px',
-        marginRight: '5px',
+        height: 60,
+        width: 60,
+        marginRight: 5,
         transition: 'all 3s linear',
     },
     logo_word: {
-        marginTop: '25px',
-        height: '40px',
-        width: '40px',
+        marginTop: 25,
+        height: 40,
+        width: 40,
     },
 };
 

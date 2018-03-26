@@ -9,10 +9,10 @@ const ActionsGroup = ({ changeModalVisibility, actionName, actionKey, visibility
     <div style={styles.main} >
         <div id={actionKey} style={styles.figure} onContextMenu={contextMenu}>
             <FontAwesomeIcon icon={faChevronDown} style={{ ...styles.pullDown, transform: visibility ? 'rotateX(0deg)' : 'rotateX(180deg)' }} onClick={event => pullDown({ event, visibility, actionKey })} role="presentation" />
-            <div style={{ display: 'flex', alignItems: 'center', width: '80%', color: '#888', fontSize: '16px', cursor: 'pointer', fontWeight: 'bold', marginLeft: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', width: '80%', color: '#888', fontSize: 16, cursor: 'pointer', fontWeight: 'bold', marginLeft: 10 }}>
                 {actionName}
             </div>
-            <FontAwesomeIcon id="addAction" icon={faPlus} style={{ fontSize: '16px', color: '#aaa', cursor: 'pointer', transition: 'all 0.1s ease-in-out' }} onMouseDown={changeModalVisibility({ viewMode: actionKey })} />
+            <FontAwesomeIcon id="addAction" icon={faPlus} style={{ fontSize: 16, color: '#aaa', cursor: 'pointer', transition: 'all 0.1s ease-in-out' }} onMouseDown={changeModalVisibility({ viewMode: actionKey })} />
         </div>
         <Actions actionKey={actionKey} />
     </div>
@@ -39,7 +39,7 @@ const styles = {
     },
     figure: {
         width: '100%',
-        height: '43px',
+        height: 43,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -52,17 +52,17 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         marginLeft: '5%',
-        fontSize: '16px',
+        fontSize: 16,
         cursor: 'pointer',
         color: '#aaa',
         transition: 'all 0.4s ease-out',
     },
     title: {
-        marginLeft: '10px',
+        marginLeft: 10,
         border: 'none',
         backgroundColor: 'transparent',
         color: '#888',
-        fontSize: '16px',
+        fontSize: 16,
         cursor: 'pointer',
         textAlign: 'text',
         fontWeight: 'bold',
@@ -75,12 +75,12 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     const mouseupListener = () => {
-        document.getElementById('addAction').style.fontSize = '16px';
+        document.getElementById('addAction').style.fontSize = 16;
         document.removeEventListener('mouseup', mouseupListener, true);
     };
     return {
         changeModalVisibility: ({ viewMode }) => () => {
-            document.getElementById('addAction').style.fontSize = '10px';
+            document.getElementById('addAction').style.fontSize = 10;
             document.addEventListener('mouseup', mouseupListener, true);
             dispatch({
                 type: 'ACTION_MODAL_VISIBILITY',

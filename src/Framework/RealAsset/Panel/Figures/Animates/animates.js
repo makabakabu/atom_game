@@ -9,7 +9,7 @@ const Animates = ({ figureId, visibility, locked, animateList, panelSort }) => (
     <div
       id={`${figureId}animates`}
       style={{ width: '100%', transition: 'height 0.4s ease-out',
-        height: visibility ? `${animateList.length * 35}px` : '0px', overflow: 'hidden' }}
+        height: visibility ? animateList.length * 35 : 0, overflow: 'hidden' }}
     >
         <SortableList id="figuresGroup" figureId={figureId} items={animateList} onSortEnd={({ oldIndex, newIndex }, event) => panelSort({ event, locked, figureId, oldIndex, newIndex })} pressDelay={200} transitionDuration={100} />
     </div>

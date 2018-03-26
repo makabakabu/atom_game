@@ -20,7 +20,7 @@ Eraser.propTypes = {
 const styles = {
     main: {
         width: '90%',
-        fontSize: '13px',
+        fontSize: 13,
         color: '#aaa',
     },
 };

@@ -1,12 +1,10 @@
 {
     "extends": [
-        "airbnb",
-        "plugin:flowtype/recommended"
+        "airbnb"
     ],
     "plugins": [
         "react",
-        "jest",
-        "flowtype"
+        "jest"
     ],
     "rules": {
         "object-shorthand": 1,

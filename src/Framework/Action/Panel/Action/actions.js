@@ -9,7 +9,7 @@ const Actions = ({ actionKey, visibility, actionList, panelSort }) => (
     <div
       id={`${actionKey}statuses`}
       style={{ width: '100%', transition: 'height 0.4s ease-out',
-        height: visibility ? `${actionList.length * 35}px` : '0px', overflow: 'hidden' }}
+        height: visibility ? actionList.length * 35 : 0, overflow: 'hidden' }}
     >
         <SortableList id="figuresGroup" actionKey={actionKey} items={actionList} onSortEnd={({ oldIndex, newIndex }) => panelSort({ actionKey, oldIndex, newIndex })} pressDelay={200} transitionDuration={100} />
     </div>

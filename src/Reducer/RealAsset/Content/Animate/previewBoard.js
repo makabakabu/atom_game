@@ -29,6 +29,15 @@ const previewBoard = ({ state, action }) => {
             return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'frameSequence', focusedFrame, 'functionPanel'], functionPanel);
         }
 
+        case 'ANIMATE_CONTENT_DRAG': {
+            const animate = state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId')]);
+            const focusedFrame = animate.getIn(['focusedFrame', 0]);
+            let functionPanel = animate.getIn(['frameSequence', focusedFrame, 'functionPanel']);
+            functionPanel = functionPanel.updateIn(['position', 'x'], value => value + action.deltaX);
+            functionPanel = functionPanel.updateIn(['position', 'y'], value => value + action.deltaY);
+            return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'frameSequence', focusedFrame, 'functionPanel'], functionPanel);
+        }
+
         case 'FRAME_SEQUENCE_DELETE': {
             state = state.updateIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], (value) => {
                 if (value === action.frameId) {

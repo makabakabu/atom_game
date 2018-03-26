@@ -46,8 +46,8 @@ const Cell = ({
             borderLeft: border.includes(2) ? '1px dashed black' : 'none',
             borderBottom: border.includes(3) ? '1px dashed black' : 'none',
             borderRight: border.includes(4) ? '1px dashed black' : 'none',
-            width: `${width}px`,
-            height: `${height}px`,
+            width,
+            height,
         }}
         onMouseEnter={mouseEnter({
             row, col, figureId, hex, region, paintToolOperation, viewMode, width, height, valueList, value,

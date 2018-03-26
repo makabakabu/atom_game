@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const Board = ({ isFocused, figure, focus }) => (
-    <div style={{ width: '102px', height: '102px' }} onClick={focus} role="presentation">
-        <div style={{ width: '102px', height: '77px', display: 'flex', flexWrap: 'wrap', margin: '4px', border: `1px solid ${isFocused ? 'black' : 'transparent'}` }} role="presentation">
+    <div style={{ width: 102, height: 102 }} onClick={focus} role="presentation">
+        <div style={{ width: 102, height: 77, display: 'flex', flexWrap: 'wrap', margin: 4, border: `1px solid ${isFocused ? 'black' : 'transparent'}` }} role="presentation">
             {
-                figure.get('status').first().get('value').map((rowList, rowIndex) => rowList.map((cell, colIndex) => <div style={{ backgroundColor: cell.get('hex'), width: `${100 / rowList.size}px`, height: `${75 / figure.get('status').first().get('value').size}px` }} key={`figureFrame${rowIndex}_${colIndex}`} id={`figureFrame${rowIndex}_${colIndex}`} />))
+                figure.get('status').first().get('value').map((rowList, rowIndex) => rowList.map((cell, colIndex) => <div style={{ backgroundColor: cell.get('hex'), width: 100 / rowList.size, height: 75 / figure.get('status').first().get('value').size }} key={`figureFrame${rowIndex}_${colIndex}`} id={`figureFrame${rowIndex}_${colIndex}`} />))
             }
         </div>
-        <div style={{ width: '100px', display: 'flex', justifyContent: 'center', fontWeight: 'bold' }}>
+        <div style={{ width: 100, display: 'flex', justifyContent: 'center', fontWeight: 'bold' }}>
             { figure.get('status').first().get('name') }
         </div>
     </div>

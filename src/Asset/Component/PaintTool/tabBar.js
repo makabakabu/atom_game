@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const TabBar = ({ name, color }) => (
     <div style={{ color }}>
         { name }
-        <div style={{ height: '1px', width: '100%', backgroundColor: color, marginTop: '5px' }} />
+        <div style={{ height: 1, width: '100%', backgroundColor: color, marginTop: 5 }} />
     </div>
 );
 

@@ -19,7 +19,7 @@ const Setting = ({
             <Slider trackStyle={[{ backgroundColor: '#aaa' }]} value={progress.get('value')} max={progress.get('max')} dotStyle={{ backgroundColor: '#aaa' }} onChange={value => changeExecuteValue({ num: value, loopSequence, frameSequence })} />
         </div>
         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ width: '15%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#6a6a6a', fontSize: '12px' }}>
+            <div style={{ width: '15%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#6a6a6a', fontSize: 12 }}>
                 <div style={{ width: '42%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                         放大:
@@ -38,12 +38,12 @@ const Setting = ({
                 <FontAwesomeIcon icon={progress.get('execute') ? faPause : faPlay} onMouseDown={changeExecuteState({ progress, frameSequence, loopSequence, num: progress.get('value') })} />
                 <FontAwesomeIcon icon={faForward} onMouseDown={() => changeExecuteValue({ num: progress.get('value') + 1, frameSequence, loopSequence })} />
             </div>
-            <div style={{ height: '30px', width: '18%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: '#6a6a6a' }}>
-                <div style={{ width: '60px', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+            <div style={{ height: 30, width: '18%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#6a6a6a' }}>
+                <div style={{ width: 60, display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
                     锁定: <FontAwesomeIcon icon={locked ? faLock : faLockOpen} style={{ color: locked ? '#6a6a6a' : '#ccc' }} onClick={changeState({ kind: 'locked' })} role="presentation" size="lg" />
                 </div>
-                <div style={{ width: '60px', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                    寻迹: <img style={{ width: '30px', height: '30px' }} src={require(`Asset/Image/Public/trace${trace ? '_selected' : ''}.png`)} onClick={changeState({ kind: 'trace' })} role="presentation" alt="寻迹" />
+                <div style={{ width: 60, display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+                    寻迹: <img style={{ width: 30, height: 30 }} src={require(`Asset/Image/Public/trace${trace ? '_selected' : ''}.png`)} onClick={changeState({ kind: 'trace' })} role="presentation" alt="寻迹" />
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        fontSize: '20px',
+        fontSize: 20,
         color: '#6a6a6a',
     },
 };
@@ -92,16 +92,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     const mouseupListener = () => {
-        document.getElementById('larger').style.fontSize = '16px';
-        document.getElementById('smaller').style.fontSize = '16px';
+        document.getElementById('larger').style.fontSize = 16;
+        document.getElementById('smaller').style.fontSize = 16;
         document.removeEventListener('mouseup', mouseupListener, true);
     };
     return {
         onChange: ({ value }) => () => {
             if (value > 0) {
-                document.getElementById('larger').style.fontSize = '20px';
+                document.getElementById('larger').style.fontSize = 20;
             } else {
-                document.getElementById('smaller').style.fontSize = '12px';
+                document.getElementById('smaller').style.fontSize = 12;
             }
             document.addEventListener('mouseup', mouseupListener, true);
             dispatch({

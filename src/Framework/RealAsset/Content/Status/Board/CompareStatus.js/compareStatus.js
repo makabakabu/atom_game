@@ -33,7 +33,7 @@ const SortableItem = SortableElement(({ figureId, statusId }) =>
 const styles = {
     main: {
         width: '100%',
-        height: '150px',
+        height: 150,
         display: 'flex',
         justifyContent: 'flex-start',
         flexWrap: 'wrap',

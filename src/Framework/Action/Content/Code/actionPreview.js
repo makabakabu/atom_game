@@ -8,7 +8,7 @@ const styles = {
     main: {
         width: '100%',
         height: '30%',
-        marginTop: '10px',
+        marginTop: 10,
         display: 'flex',
         justifyContent: 'flex-start',
         flexWrap: 'wrap',

@@ -15,7 +15,7 @@ const Figure = ({ figureId, name, isFigure, mouseDown, mouseEnter, mouseLeave, c
             <div style={{ display: 'flex', justifyContent: 'center', width: '60%' }}>
                 <input
                   id={`${figureId}title`}
-                  style={{ ...styles.title, width: `${(stringWidth(name) * 8) + 8}px` }}
+                  style={{ ...styles.title, width: (stringWidth(name) * 8) + 8 }}
                   value={name}
                   onChange={event => changeName({ value: event.target.value })}
                 />
@@ -41,11 +41,11 @@ Figure.propTypes = {
 
 let styles = {
     main: {
-        width: '240px',
-        height: '45px',
-        marginTop: '5px',
+        width: 240,
+        height: 45,
+        marginTop: 5,
         display: 'flex',
-        borderRadius: '5px',
+        borderRadius: 5,
         justifyContent: 'flex-start',
         alignItems: 'center',
         transition: 'all 0.4s ease-out',
@@ -57,7 +57,7 @@ let styles = {
         border: 'none',
         backgroundColor: 'transparent',
         color: '#888',
-        fontSize: '16px',
+        fontSize: 16,
         fontWeight: 'bold',
         cursor: 'pointer',
         textAlign: 'center',

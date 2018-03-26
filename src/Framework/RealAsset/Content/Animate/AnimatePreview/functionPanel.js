@@ -7,39 +7,28 @@ import { InputNumber } from 'antd';
 const FunctionPanel = ({ functionPanel, change, rotateOperation }) => (
     <div style={styles.main}>
         <div style={styles.panel}>
-            <div style={{ ...styles.option, width: '100%' }}>
-                位置
-                <div>
-                    x <InputNumber size="small" min={0} value={functionPanel.getIn(['position', 'x'])} style={{ width: 60 }} onChange={value => change({ value, operationKind: ['position', 'x'] })} />
-                </div>
-                <div>
-                    y <InputNumber size="small" min={0} value={functionPanel.getIn(['position', 'y'])} style={{ width: 60 }} onChange={value => change({ value, operationKind: ['position', 'y'] })} />
-                </div>
-                <div style={{ display: 'flex', width: '30%', justifyContent: 'space-between', alignItems: 'center' }}>
-                    时间
-                    <InputNumber size="small" min={0} value={functionPanel.get('time')} style={{ width: 60 }} onChange={value => change({ value, operationKind: ['time'] })} />
+            <div style={{ display: 'flex', width: '25%', justifyContent: 'space-between', alignItems: 'center' }}>
+                时间
+                <InputNumber size="small" min={0} value={functionPanel.get('time')} style={{ width: 60 }} onChange={value => change({ value, operationKind: ['time'] })} />
+            </div>
+            <div style={{ ...styles.option, width: '40%' }}>
+                <div> 旋转 </div>
+                <div style={{ width: 105, display: 'flex', justifyContent: 'flex-start' }}>
+                    <img
+                      id="rotateImage"
+                      draggable="false"
+                      style={{ ...styles.rotateImg, transform: `rotate(${functionPanel.get('angle')}deg)` }}
+                      src={require('Asset/Image/PaintTool/Cursor/rotate.png')}
+                      alt="旋转图片"
+                      onMouseDown={rotateOperation}
+                      role="presentation"
+                    />
+                    <InputNumber size="small" min={0} value={functionPanel.get('angle')} style={{ width: 60 }} onChange={value => change({ value, operationKind: ['angle'] })} />
                 </div>
             </div>
-            <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-                <div style={{ ...styles.option, width: '48%' }}>
-                    <div> 旋转 </div>
-                    <div style={{ width: '105px', display: 'flex', justifyContent: 'space-between' }}>
-                        <img
-                          id="rotateImage"
-                          draggable="false"
-                          style={{ ...styles.rotateImg, transform: `rotate(${functionPanel.get('angle')}deg)` }}
-                          src={require('Asset/Image/PaintTool/Cursor/rotate.png')}
-                          alt="旋转图片"
-                          onMouseDown={rotateOperation}
-                          role="presentation"
-                        />
-                        <InputNumber size="small" min={0} value={functionPanel.get('angle')} style={{ width: 60 }} onChange={value => change({ value, operationKind: ['angle'] })} />
-                    </div>
-                </div>
-                <div style={{ ...styles.option, width: '30%' }}>
-                    缩放
-                    <InputNumber size="small" min={0.1} value={functionPanel.get('shrink')} step={0.1} style={{ width: 60 }} onChange={value => change({ value, operationKind: ['shrink'] })} />
-                </div>
+            <div style={{ ...styles.option, width: '25%' }}>
+                缩放
+                <InputNumber size="small" min={0.1} value={functionPanel.get('shrink')} step={0.1} style={{ width: 60 }} onChange={value => change({ value, operationKind: ['shrink'] })} />
             </div>
         </div>
     </div>
@@ -54,8 +43,8 @@ FunctionPanel.propTypes = {
 let styles = {
     main: {
         width: '100%',
-        height: '40px',
-        marginTop: '3px',
+        height: 30,
+        marginTop: 3,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -63,22 +52,22 @@ let styles = {
         transition: 'all 0.4s ease-out',
     },
     panel: {
-        width: '300px',
+        width: 370,
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        fontSize: '12px',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        fontSize: 12,
     },
     option: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '30px',
+        justifyContent: 'space-around',
+        height: 30,
         transition: 'all 0.4s ease-out',
     },
     rotateImg: {
-        width: '23px',
-        height: '23px',
+        width: 23,
+        height: 23,
         cursor: 'pointer',
     },
 };

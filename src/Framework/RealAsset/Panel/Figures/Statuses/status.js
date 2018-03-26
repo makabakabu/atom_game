@@ -14,7 +14,7 @@ const Status = ({ statusId, name, isStatus, mouseDown, mouseEnter, mouseLeave, c
             <div style={{ width: '80%', display: 'flex', justifyContent: 'center' }}>
                 <input
                   id={`${statusId}title`}
-                  style={{ ...styles.title, width: `${(stringWidth(name) * 7) + 7}px` }}
+                  style={{ ...styles.title, width: (stringWidth(name) * 7) + 7 }}
                   value={name}
                   onChange={changeName}
                 />
@@ -37,7 +37,7 @@ Status.propTypes = {
 let styles = {
     main: {
         width: '100%',
-        height: '35px',
+        height: 35,
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -50,7 +50,7 @@ let styles = {
         border: 'none',
         backgroundColor: 'transparent',
         color: '#888',
-        fontSize: '14px',
+        fontSize: 14,
         fontWeight: 'bold',
         cursor: 'pointer',
         textAlign: 'center',

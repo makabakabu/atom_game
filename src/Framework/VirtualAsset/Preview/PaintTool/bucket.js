@@ -7,13 +7,13 @@ import Slide from 'Asset/Component/PaintTool/slide';
 import ColorPicker from 'Asset/Component/PaintTool/colorPicker';
 
 const Bucket = ({ bucket, hex, opacitySlide, colorClick, colorPicker, selectMode }) => (
-    <div style={{ width: '90%', fontSize: '13px', color: '#aaa' }}>
+    <div style={{ width: '90%', fontSize: 13, color: '#aaa' }}>
         <TabBar name="油漆桶" color="#ccc" />
-        <div style={{ width: '200px', height: '70px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ width: 200, height: 70, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             模式：
             <div style={{ width: '80%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                <img style={{ width: '25px', height: '25px' }} src={require(`Asset/Image/PaintTool/Cursor/outline${bucket.get('mode') === 'outline' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'outline' })} alt="轮廓" role="presentation" />
-                <img style={{ width: '25px', height: '25px' }} src={require(`Asset/Image/PaintTool/Cursor/singleColor${bucket.get('mode') === 'singleColor' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'singleColor' })} alt="单色" role="presentation" />
+                <img style={{ width: 25, height: 25 }} src={require(`Asset/Image/PaintTool/Cursor/outline${bucket.get('mode') === 'outline' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'outline' })} alt="轮廓" role="presentation" />
+                <img style={{ width: 25, height: 25 }} src={require(`Asset/Image/PaintTool/Cursor/singleColor${bucket.get('mode') === 'singleColor' ? '_selected' : ''}.png`)} onClick={selectMode({ mode: 'singleColor' })} alt="单色" role="presentation" />
             </div>
         </div>
         <Slide titleName="不透明度" titleValue={`${bucket.get('opacity') * 100}%`} value={bucket.get('opacity') * 100} onChange={opacitySlide} />

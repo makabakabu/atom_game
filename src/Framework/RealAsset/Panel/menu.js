@@ -21,7 +21,7 @@ const Menu = ({ contextMenu, enterLeave, deleteFigure, duplicate, copy }) => (
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faTrash} size="lg" />
-                        <div style={{ marginLeft: '2px', fontSize: '14px' }}>
+                        <div style={{ marginLeft: 2, fontSize: 14 }}>
                             删除
                         </div>
                     </div>
@@ -36,7 +36,7 @@ const Menu = ({ contextMenu, enterLeave, deleteFigure, duplicate, copy }) => (
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faClone} size="lg" />
-                        <div style={{ marginLeft: '2px', fontSize: '14px' }}>
+                        <div style={{ marginLeft: 2, fontSize: 14 }}>
                             副本
                         </div>
                     </div>
@@ -51,7 +51,7 @@ const Menu = ({ contextMenu, enterLeave, deleteFigure, duplicate, copy }) => (
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faCopy} size="lg" />
-                        <div style={{ marginLeft: '2px', fontSize: '14px' }}>
+                        <div style={{ marginLeft: 2, fontSize: 14 }}>
                             复制
                         </div>
                     </div>
@@ -66,7 +66,7 @@ const Menu = ({ contextMenu, enterLeave, deleteFigure, duplicate, copy }) => (
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faPaste} size="lg" />
-                        <div style={{ marginLeft: '2px', fontSize: '14px' }}>
+                        <div style={{ marginLeft: 2, fontSize: 14 }}>
                             粘贴
                         </div>
                     </div>
@@ -86,9 +86,9 @@ Menu.propTypes = {
 
 let styles = {
     main: {
-        width: '120px',
-        height: '130px',
-        borderRadius: '5px',
+        width: 120,
+        height: 130,
+        borderRadius: 5,
         boxShadow: '0px 1px 10px #707070',
         cursor: 'pointer',
         alignItems: 'center',
@@ -97,13 +97,13 @@ let styles = {
         transition: 'all 0.2s ease-out',
     },
     container: {
-        width: '120px',
-        height: '120px',
-        paddingTop: '5px',
+        width: 120,
+        height: 120,
+        paddingTop: 5,
     },
     menu: {
-        width: '120px',
-        height: '30px',
+        width: 120,
+        height: 30,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -122,13 +122,13 @@ const mapDispatchToProps = dispatch => ({
         deleteFigure: ({ contextMenu }) => async () => {
             await new Promise((resolve) => {
                 if (contextMenu.get('viewMode') !== 'animate') {
-                    document.getElementById(contextMenu.getIn(['content', 'figure', `${contextMenu.getIn(['content', 'figure', 'target'])}Id`])).style.height = '0px';
+                    document.getElementById(contextMenu.getIn(['content', 'figure', `${contextMenu.getIn(['content', 'figure', 'target'])}Id`])).style.height = 0;
                     if (contextMenu.getIn(['content', 'figure', 'target']) === 'status') {
                         document.getElementById(`${contextMenu.getIn(['content', 'figure', 'figureId'])}statuses`).style.height = `${parseInt(document.getElementById(`${contextMenu.getIn(['content', 'figure', 'figureId'])}statuses`).style.height.replace('px', ''), 10) - 35}px`;
                         document.getElementById(contextMenu.getIn(['content', 'figure', 'figureId'])).style.height = `${parseInt(document.getElementById(contextMenu.getIn(['content', 'figure', 'figureId'])).style.height.replace('px', ''), 10) - 35}px`;
                     }
                 } else {
-                    document.getElementById(contextMenu.getIn(['content', 'animate', 'animateId'])).style.height = '0px';
+                    document.getElementById(contextMenu.getIn(['content', 'animate', 'animateId'])).style.height = 0;
                     document.getElementById(`${contextMenu.getIn(['content', 'animate', 'figureId'])}animates`).style.height = `${parseInt(document.getElementById(`${contextMenu.getIn(['content', 'animate', 'figureId'])}animates`).style.height.replace('px', ''), 10) - 35}px`;
                     document.getElementById(contextMenu.getIn(['content', 'animate', 'figureId'])).style.height = `${parseInt(document.getElementById(contextMenu.getIn(['content', 'animate', 'figureId'])).style.height.replace('px', ''), 10) - 35}px`;
                 }
@@ -175,17 +175,17 @@ const mapDispatchToProps = dispatch => ({
             });
             await new Promise((resolve) => {
                 document.getElementById(newId).style.transition = 'all 0s ease-out';
-                document.getElementById(newId).style.height = '0px';
+                document.getElementById(newId).style.height = 0;
                 setTimeout(() => {
                     resolve(true);
                 }, 10);
             });
             document.getElementById(newId).style.transition = 'all 0.4s ease-out';
             if (contextMenu.getIn(['content', 'figure', 'target']) === 'figure') {
-                document.getElementById(newId).style.height = '45px';
-                document.getElementById(`${newId}figure`).style.height = '45px';
+                document.getElementById(newId).style.height = 45;
+                document.getElementById(`${newId}figure`).style.height = 45;
             } else {
-                document.getElementById(newId).style.height = '35px';
+                document.getElementById(newId).style.height = 35;
             }
         },
         copy: () => {

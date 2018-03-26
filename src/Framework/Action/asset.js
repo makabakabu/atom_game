@@ -7,7 +7,7 @@ import VirtualAsset from '../VirtualAsset/Panel/panel';
 
 const { TabPane } = Tabs;
 const Asset = ({ viewMode }) => (
-    <Tabs defaultActiveKey={viewMode} tabBarStyle={{ display: 'flex', justifyContent: 'center' }} animated={false} style={{ width: '250px', height: document.documentElement.clientHeight - 40 }}>
+    <Tabs defaultActiveKey={viewMode} tabBarStyle={{ display: 'flex', justifyContent: 'center' }} animated={false} style={{ width: 250, height: document.documentElement.clientHeight - 40 }}>
         <TabPane tab="真实资源" key="realAsset">
             <RealAsset />
         </TabPane>

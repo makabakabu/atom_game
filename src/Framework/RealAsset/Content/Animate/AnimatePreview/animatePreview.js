@@ -12,10 +12,10 @@ import FunctionPanel from './functionPanel';
 import LoopLine from './loopLine';
 
 const AnimatePreview = ({ isFocused, frameSequence, panelSort, loopSequence }) => (
-    <div style={{ width: '100%', marginTop: '10px', display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-        { isFocused ? <FunctionPanel /> : <div style={{ height: '100px', width: '100%' }} /> }
+    <div style={{ width: '100%', marginTop: 10, display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+        { isFocused ? <FunctionPanel /> : <div style={{ height: 100, width: '100%' }} /> }
         <ContextMenuTrigger id="animateMenu">
-            <div style={{ width: '100%', height: '20px', marginTop: '15px', marginBottom: '-15px', display: 'flex', justifyContent: 'flex-start' }}>
+            <div style={{ width: '100%', height: 20, marginTop: 15, marginBottom: -15, display: 'flex', justifyContent: 'flex-start' }}>
                 {
                     loopSequence.map((loop, loopIndex) => <LoopLine key={uuidv4()} loop={loop} loopIndex={loopIndex} index={List(frameSequence.keySeq()).indexOf(loop.getIn(['sequence', 0])) - (loopIndex > 0 ? List(frameSequence.keySeq()).indexOf(loopSequence.getIn([loopIndex - 1, 'sequence', -1])) : 0)} />)
                 }

@@ -33,10 +33,10 @@ const signIn = gql`
 
 const { TabPane } = Tabs;
 const Operation = ({ account, register, signIn, store, storeVisibility, changeAccountInfo, accountSettingOk, accountVisibility, accountChangeViewMode, logOff, enterStore, leaveStore }) => (
-    <div style={{ width: '250px', height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ width: 250, height: 80, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <img
           src={require('Asset//Image/Public/store.png')}
-          style={{ width: '35px', height: '30px', marginRight: '20px' }}
+          style={{ width: 35, height: 30, marginRight: 20 }}
           alt="资源"
           role="presentation"
           onMouseEnter={event => enterStore({ event })}
@@ -44,7 +44,7 @@ const Operation = ({ account, register, signIn, store, storeVisibility, changeAc
           onClick={storeVisibility({ visibility: true && window.sessionStorage.getItem('token') })}
         />
         <Modal open={store.get('visibility')} onClose={storeVisibility({ visibility: false })} little>
-            <div style={{ width: document.documentElement.clientWidth - 300, height: document.documentElement.clientHeight - 200, marginTop: '20px' }}>
+            <div style={{ width: document.documentElement.clientWidth - 300, height: document.documentElement.clientHeight - 200, marginTop: 20 }}>
                 <Tabs defaultActiveKey={store.get('viewMode')} tabBarStyle={{ display: 'flex', justifyContent: 'center' }} animated={false} style={{ width: document.documentElement.clientWidth - 520, height: document.documentElement.clientHeight - 40 }}>
                     <TabPane tab="真实资源" key="realAsset">
                         <RealAsset />
@@ -65,10 +65,10 @@ const Operation = ({ account, register, signIn, store, storeVisibility, changeAc
             </div>
         </Modal>
         { window.sessionStorage.getItem('userName') ?
-            <FontAwesomeIcon icon={faUser} style={{ fontSize: '23px', color: '#6a6a6a', cursor: 'pointer', marginLeft: '20px' }} onClick={logOff} /> :
+            <FontAwesomeIcon icon={faUser} style={{ fontSize: 23, color: '#6a6a6a', cursor: 'pointer', marginLeft: 20 }} onClick={logOff} /> :
             <img
               src={require('Asset/Image/Public/signIn.png')}
-              style={{ width: '30px', height: '25px', marginLeft: '20px', cursor: 'pointer' }}
+              style={{ width: 30, height: 25, marginLeft: 20, cursor: 'pointer' }}
               alt="登录"
               onMouseEnter={(event) => {
                   event.target.src = require('Asset/Image/Public/signIn.gif');
@@ -95,15 +95,15 @@ const Operation = ({ account, register, signIn, store, storeVisibility, changeAc
                         <Input placeholder="用户名" size="large" style={{ width: 200, border: 'none', borderBottom: '1px solid #ededed', outline: 'none' }} defaultValue={account.getIn([account.get('viewMode'), 'userName'])} onChange={event => changeAccountInfo({ kind: 'userName', value: event.target.value })} />
                     </div>
                     <div>
-                        <Input type="password" placeholder="密码" size="large" style={{ width: 200, border: 'none', borderBottom: '1px solid #ededed', marginTop: '20px', outline: 'none' }} defaultValue={account.getIn([account.get('viewMode'), 'password'])} onChange={event => changeAccountInfo({ kind: 'password', value: event.target.value })} />
+                        <Input type="password" placeholder="密码" size="large" style={{ width: 200, border: 'none', borderBottom: '1px solid #ededed', marginTop: 20, outline: 'none' }} defaultValue={account.getIn([account.get('viewMode'), 'password'])} onChange={event => changeAccountInfo({ kind: 'password', value: event.target.value })} />
                     </div>
                     {
                         account.get('viewMode') === 'register' &&
                         <div>
-                            <Input type="password" placeholder="重复密码" size="large" style={{ width: 200, border: 'none', borderBottom: '1px solid #ededed', marginTop: '20px', outline: 'none' }} defaultValue={account.getIn(['register', 'repassword'])} onChange={event => changeAccountInfo({ kind: 'rePassword', value: event.target.value })} />
+                            <Input type="password" placeholder="重复密码" size="large" style={{ width: 200, border: 'none', borderBottom: '1px solid #ededed', marginTop: 20, outline: 'none' }} defaultValue={account.getIn(['register', 'repassword'])} onChange={event => changeAccountInfo({ kind: 'rePassword', value: event.target.value })} />
                         </div>
                     }
-                    <div style={{ fontSize: '16px', marginTop: '10px', color: 'blue', cursor: 'pointer' }} onClick={accountChangeViewMode} role="presentation">{account.get('viewMode') === 'signIn' ? '注册' : '登陆'}</div>
+                    <div style={{ fontSize: 16, marginTop: 10, color: 'blue', cursor: 'pointer' }} onClick={accountChangeViewMode} role="presentation">{account.get('viewMode') === 'signIn' ? '注册' : '登陆'}</div>
                 </div>
             </div>
         </AntModal>

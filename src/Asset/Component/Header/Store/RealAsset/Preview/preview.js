@@ -10,11 +10,11 @@ const Preview = ({ focus, use }) => (
         <div style={{ width: '100%', height: '90%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
             {
                 focus.size > 0 && focus.get('status').map(status => (
-                    <div key={uuidv4()} style={{ width: '100px', height: '75px', display: 'flex', flexWrap: 'wrap', margin: '4px' }} role="presentation">
+                    <div key={uuidv4()} style={{ width: 100, height: 75, display: 'flex', flexWrap: 'wrap', margin: 4 }} role="presentation">
                         {
                             status.get('value').map((rowList, rowIndex) =>
                                 rowList.map((cell, colIndex) =>
-                                    <div style={{ backgroundColor: cell.get('hex'), width: `${100 / rowList.size}px`, height: `${75 / focus.get('status').first().get('value').size}px` }} key={`figureFrame${rowIndex}_${colIndex}`} id={`figureFrame${rowIndex}_${colIndex}`} />))
+                                    <div style={{ backgroundColor: cell.get('hex'), width: 100 / rowList.size, height: 75 / focus.get('status').first().get('value').size }} key={`figureFrame${rowIndex}_${colIndex}`} id={`figureFrame${rowIndex}_${colIndex}`} />))
                         }
                     </div>
                 )).valueSeq().toArray()
