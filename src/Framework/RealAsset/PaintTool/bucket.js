@@ -44,11 +44,15 @@ const mapDispatchToProps = dispatch => ({
         dispatch({
             type: 'PAINTTOOL_BUCKET_COLORPICKER_VISIBILITY',
         }),
-    colorPicker: ({ color }) =>
+    colorPicker: ({ color }) => {
         dispatch({
             type: 'PAINTTOOL_MACRO_COLOR',
             hex: color.hex,
-        }),
+        });
+        dispatch({
+            type: 'PAINTTOOL_BUCKET_COLORPICKER_VISIBILITY',
+        });
+    },
     selectMode: ({ mode }) => () =>
         dispatch({
             type: 'PAINTTOOL_REGION_MODE',

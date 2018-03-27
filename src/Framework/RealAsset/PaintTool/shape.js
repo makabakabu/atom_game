@@ -173,6 +173,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 kind,
                 color,
             });
+            dispatch({
+                type: 'PAINTTOOL_SHAPE_COLORPICKER_VISIBILITY',
+                kind,
+                visibility: false,
+            });
         },
         slide: ({ value, slideObject }) => {
             dispatch({

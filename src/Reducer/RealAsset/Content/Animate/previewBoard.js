@@ -23,10 +23,9 @@ const previewBoard = ({ state, action }) => {
 
         case 'ANIMATE_BOARD_FUNCTIONPANEL_SETTING_OPERATION': {
             const animate = state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId')]);
-            const focusedFrame = animate.getIn(['focusedFrame', 0]);
-            let functionPanel = animate.getIn(['frameSequence', focusedFrame, 'functionPanel']);
+            let functionPanel = animate.getIn(['frameSequence', action.frameId, 'functionPanel']);
             functionPanel = action.operationKind.length === 1 ? functionPanel.set(action.operationKind[0], action.value) : functionPanel.setIn([...action.operationKind], action.value);
-            return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'frameSequence', focusedFrame, 'functionPanel'], functionPanel);
+            return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'frameSequence', action.frameId, 'functionPanel'], functionPanel);
         }
 
         case 'ANIMATE_CONTENT_DRAG': {

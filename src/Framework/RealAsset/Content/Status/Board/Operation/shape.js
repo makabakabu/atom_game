@@ -72,7 +72,7 @@ const shape = ({
             ),
             elipse: ({ rowIndex, colIndex, center }) => {
                 const angle = Math.atan(Math.abs(colIndex - center[1]) / Math.abs(rowIndex - center[0]));
-                return (((rowIndex - center[0]) ** 2) + ((colIndex - center[1]) ** 2)) <= (((center[1] * Math.sin(angle)) ** 2) + ((center[0] * Math.cos(angle)) ** 2));
+                return (rowIndex === center[0] && colIndex === center[1]) || (((rowIndex - center[0]) ** 2) + ((colIndex - center[1]) ** 2)) <= (((center[1] * Math.sin(angle)) ** 2) + ((center[0] * Math.cos(angle)) ** 2));
             },
             elipseThickness: ({ rowIndex, colIndex, center, thickness }) => {
                 const angle = Math.atan(Math.abs(colIndex - center[1]) / Math.abs(rowIndex - center[0]));

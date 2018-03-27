@@ -47,11 +47,15 @@ const mapDispatchToProps = dispatch => ({
         dispatch({
             type: 'PAINTTOOL_BRUSH_COLORPICKER_VISIBILITY',
         }),
-    colorPicker: ({ color }) =>
+    colorPicker: ({ color }) => {
         dispatch({
             type: 'PAINTTOOL_MACRO_COLOR',
             hex: color.hex,
-        }),
+        });
+        dispatch({
+            type: 'PAINTTOOL_BRUSH_COLORPICKER_VISIBILITY',
+        });
+    },
     cuvettePick: () =>
         dispatch({
             type: 'PAINTTOOL_BRUSH_CUVETTE_VISIBILITY',

@@ -8,14 +8,13 @@ import { ContextMenuTrigger } from 'react-contextmenu';
 import uuidv4 from 'uuid';
 import Menu from './menu';
 import Board from './board';
-import FunctionPanel from './functionPanel';
 import LoopLine from './loopLine';
+import Time from './time';
 
-const AnimatePreview = ({ isFocused, frameSequence, panelSort, loopSequence }) => (
-    <div style={{ width: '100%', marginTop: 10, display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-        { isFocused ? <FunctionPanel /> : <div style={{ height: 100, width: '100%' }} /> }
+const AnimatePreview = ({ frameSequence, panelSort, loopSequence }) => (
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
         <ContextMenuTrigger id="animateMenu">
-            <div style={{ width: '100%', height: 20, marginTop: 15, marginBottom: -15, display: 'flex', justifyContent: 'flex-start' }}>
+            <div style={{ width: '100%', height: 20, marginTop: 5, marginBottom: -15, display: 'flex', justifyContent: 'flex-start' }}>
                 {
                     loopSequence.map((loop, loopIndex) => <LoopLine key={uuidv4()} loop={loop} loopIndex={loopIndex} index={List(frameSequence.keySeq()).indexOf(loop.getIn(['sequence', 0])) - (loopIndex > 0 ? List(frameSequence.keySeq()).indexOf(loopSequence.getIn([loopIndex - 1, 'sequence', -1])) : 0)} />)
                 }
@@ -29,7 +28,6 @@ const AnimatePreview = ({ isFocused, frameSequence, panelSort, loopSequence }) =
 );
 
 AnimatePreview.propTypes = {
-    isFocused: PropTypes.bool.isRequired,
     frameSequence: ImmutablePropTypes.orderedMap.isRequired,
     panelSort: PropTypes.func.isRequired,
     loopSequence: ImmutablePropTypes.list.isRequired,
@@ -45,8 +43,12 @@ const SortableList = SortableContainer(({ frameSequence, items }) => (
     </div>
 ));
 
-const SortableItem = SortableElement(({ figureId, statusId, frameId }) =>
-    <Board key={`${frameId}FigureBoard`} figureId={figureId} statusId={statusId} frameId={frameId} />);
+const SortableItem = SortableElement(({ figureId, statusId, frameId }) => (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Board key={`${frameId}FigureBoard`} figureId={figureId} statusId={statusId} frameId={frameId} />
+        <Time frameId={frameId} />
+    </div>
+));
 
 let styles = {
     main: {

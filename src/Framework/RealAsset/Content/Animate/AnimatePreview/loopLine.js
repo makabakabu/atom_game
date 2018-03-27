@@ -9,10 +9,10 @@ const LoopLine = ({ loop, index, loopIndex, loopVisibility }) => {
     return (
         <Tooltip title="双击编辑" >
             <div style={{ display: 'flex', flexDirection: 'column', marginLeft: loopIndex === 0 ? 50 : 100 * index, cursor: 'pointer' }} onDoubleClick={loopVisibility}>
-                <svg strokeDasharray="5, 5" width={10 + ((length - 1) * 110)} height="2" style={{ marginTop: 3, zIndex: 100, width: ((length - 1) * 110) + 10, height: 2 }}>
-                    <line x1={5} y1={0} x2={(((length - 1) * 110) + 10) - 5} y2={0} strokeWidth="2" stroke="#6a6a6a" />
+                <svg strokeDasharray="5, 5" width={10 + ((length - 1) * 142)} height="2" style={{ marginTop: 3, zIndex: 100, width: ((length - 1) * 142) + 10, height: 2 }}>
+                    <line x1={5} y1={0} x2={(((length - 1) * 142) + 10) - 5} y2={0} strokeWidth="4" stroke="#6a6a6a" />
                 </svg>
-                <div style={{ width: ((length - 1) * 110) + 10, height: 20, marginTop: -7, display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 100, color: '#6a6a6a' }}>
+                <div style={{ width: ((length - 1) * 142) + 10, height: 20, marginTop: -7, display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 100, color: '#6a6a6a' }}>
                     <div>
                         ↓
                     </div>

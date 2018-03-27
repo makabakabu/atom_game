@@ -1,8 +1,7 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faBackward, faPlay, faForward, faExpand, faCompress } from '@fortawesome/fontawesome-free-solid';
-import Slider from 'rc-slider';
-
+import { Slider } from 'antd';
 
 const ProgressControl = () => (
     <div style={styles.main} >

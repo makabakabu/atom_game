@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Figure from './figure';
 
 const Figures = ({ figureList, panelSort, isEdit }) => (
-    <SortableList items={figureList} isEdit={isEdit} onSortEnd={({ oldIndex, newIndex }) => panelSort({ oldIndex, newIndex })} lockAxis="y" pressDelay={200} transitionDuration={100} disabled />
+    <SortableList items={figureList} isEdit={isEdit} onSortEnd={({ oldIndex, newIndex }) => panelSort({ oldIndex, newIndex })} lockAxis="y" pressDelay={200} transitionDuration={100} />
 );
 
 Figures.propTypes = {
@@ -24,9 +24,7 @@ const SortableList = SortableContainer(({ items, isEdit }) => (
         }
     </div>
 ));
-
 const SortableItem = SortableElement(({ figureId }) => <Figure key={figureId} figureId={figureId} />);
-
 const mapStateToProps = (state) => {
     const viewMode = state.getIn(['virtualAsset', 'viewMode']);
     let focusedId = state.getIn(['virtualAsset', viewMode, 'focusedFigureId']);

@@ -8,7 +8,7 @@ import { Modal, Select, AutoComplete } from 'antd';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-const Menu = ({ enterLeave, edit, duplicate, loopVisibility, loop, settingOk, settingCancel, changeLoopType, changeNum, loopSequence, focusedFrame }) => (
+const Menu = ({ enterLeave, edit, duplicate, loopVisibility, loop, settingOk, settingCancel, changeLoopType, changeNum }) => (
     <ContextMenu id="animateMenu">
         <div id="animateMenuContainer" style={styles.main}>
             <div style={styles.container}>

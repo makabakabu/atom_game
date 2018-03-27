@@ -8,11 +8,13 @@ import Actions from './Action/actions';
 const ActionsGroup = ({ changeModalVisibility, actionName, actionKey, visibility, contextMenu, pullDown }) => (
     <div style={styles.main} >
         <div id={actionKey} style={styles.figure} onContextMenu={contextMenu}>
-            <FontAwesomeIcon icon={faChevronDown} style={{ ...styles.pullDown, transform: visibility ? 'rotateX(0deg)' : 'rotateX(180deg)' }} onClick={event => pullDown({ event, visibility, actionKey })} role="presentation" />
+            <FontAwesomeIcon icon={faChevronDown} style={{ ...styles.pullDown, transform: visibility ? 'rotate(0deg)' : 'rotate(-90deg)' }} onClick={event => pullDown({ event, visibility, actionKey })} role="presentation" />
             <div style={{ display: 'flex', alignItems: 'center', width: '80%', color: '#888', fontSize: 16, cursor: 'pointer', fontWeight: 'bold', marginLeft: 10 }}>
                 {actionName}
             </div>
-            <FontAwesomeIcon id="addAction" icon={faPlus} style={{ fontSize: 16, color: '#aaa', cursor: 'pointer', transition: 'all 0.1s ease-in-out' }} onMouseDown={changeModalVisibility({ viewMode: actionKey })} />
+            <div style={{ width: 20, height: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <FontAwesomeIcon id={`${actionName}addAction`} icon={faPlus} style={{ fontSize: 16, color: '#aaa', cursor: 'pointer', transition: 'all 0.1s ease-in-out' }} onMouseDown={changeModalVisibility({ viewMode: actionKey })} />
+            </div>
         </div>
         <Actions actionKey={actionKey} />
     </div>
@@ -75,12 +77,12 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     const mouseupListener = () => {
-        document.getElementById('addAction').style.fontSize = 16;
+        document.getElementById(`${ownProps.actionName}addAction`).style.fontSize = 16;
         document.removeEventListener('mouseup', mouseupListener, true);
     };
     return {
         changeModalVisibility: ({ viewMode }) => () => {
-            document.getElementById('addAction').style.fontSize = 10;
+            document.getElementById(`${ownProps.actionName}addAction`).style.fontSize = 10;
             document.addEventListener('mouseup', mouseupListener, true);
             dispatch({
                 type: 'ACTION_MODAL_VISIBILITY',

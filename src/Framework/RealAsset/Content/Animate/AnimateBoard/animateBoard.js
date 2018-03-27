@@ -32,7 +32,7 @@ const styles = {
     },
     board: {
         width: '100%',
-        height: 370,
+        height: 430,
         backgroundColor: '#ededed',
         display: 'flex',
         justifyContent: 'flex-start',

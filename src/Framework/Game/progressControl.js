@@ -1,9 +1,8 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faBackward, faPlay, faPause, faForward } from '@fortawesome/fontawesome-free-solid';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
 import { connect } from 'react-redux';
+import { Slider } from 'antd';
 import PropTypes from 'prop-types';
 
 const ProgressControl = ({ execute, changeExecute }) => (

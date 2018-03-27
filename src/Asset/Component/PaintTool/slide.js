@@ -1,6 +1,5 @@
 import React from 'react';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import { Slider } from 'antd';
 import PropTypes from 'prop-types';
 
 const Slide = ({ titleName, max, titleValue, onChange, slideObject, value }) => (
@@ -16,7 +15,7 @@ const Slide = ({ titleName, max, titleValue, onChange, slideObject, value }) => 
                 <div>{ titleValue.replace(value, '') }</div>
             </div>
         </div>
-        <div style={{ width: '94%', marginTop: 10 }}>
+        <div style={{ width: '100%' }}>
             <Slider trackStyle={[{ backgroundColor: '#aaa' }]} max={max} value={value} dotStyle={{ backgroundColor: '#aaa' }} onChange={sliderValue => onChange({ value: sliderValue, slideObject })} />
         </div>
     </div>

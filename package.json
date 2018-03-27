@@ -22,7 +22,6 @@
         "immutable": "^3.8.2",
         "lodash": "^4.17.5",
         "prop-types": "^15.6.0",
-        "rc-slider": "^8.5.0",
         "react": "^16.2.0",
         "react-ace": "^5.9.0",
         "react-animations": "^1.0.0",
