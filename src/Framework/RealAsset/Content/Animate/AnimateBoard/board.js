@@ -10,23 +10,29 @@ import Draggable from 'react-draggable';
 // 整体的scale，和frame个体的scale
 
 let start = Map({ x: 0, y: 0 });
-const Board = ({ frame, isFocused, value, color, scale, startDrag, stopDrag, resize }) => (
+const Board = ({ frame, frameId, isFocused, value, color, scale, startDrag, stopDrag, resize, rotateOperation }) => (
     <Draggable
       grid={[4.8 * scale * frame.getIn(['functionPanel', 'shrink']), 4.8 * scale * frame.getIn(['functionPanel', 'shrink'])]}
       position={{ x: frame.getIn(['functionPanel', 'position', 'x']) * 4.8 * scale * frame.getIn(['functionPanel', 'shrink']), y: -frame.getIn(['functionPanel', 'position', 'y']) * 4.8 * scale * frame.getIn(['functionPanel', 'shrink']) }}
-      onStart={(_, data) => startDrag({ data })}
-      onStop={(_, data) => stopDrag({ data, unitLength: 4.8 * scale * frame.getIn(['functionPanel', 'shrink']) })}    
+      onStart={(event, data) => startDrag({ event, data })}
+      onStop={(_, data) => stopDrag({ data, unitLength: 4.8 * scale * frame.getIn(['functionPanel', 'shrink']) })}
+      ref={(drag) => { this.drag = drag; }}
     >
         <span>
             <div
+              id={`${frameId}ContentBoard`}
               style={{ ...styles.main, boxShadow: isFocused && '0 2px 8px #aaa', height: 4.8 * value.size * scale * frame.getIn(['functionPanel', 'shrink']), width: 4.8 * value.get(0).size * scale * frame.getIn(['functionPanel', 'shrink']),
-                    zIndex: isFocused ? 1 : 0, transform: `rotate(${frame.getIn(['functionPanel', 'angle'])}deg)`, position: 'relative', cursor: 'move' }}
-              onWheel={event => resize({ event })}
+                    zIndex: isFocused ? 1 : 0, transform: `rotate(${frame.getIn(['functionPanel', 'angle'])}deg)`, cursor: 'move' }}
+              onWheel={event => resize({ event, value: frame.getIn(['functionPanel', 'shrink']) })}
             >
                 {
                     isFocused &&
-                    <div style={{ position: 'absolute', top: 0, right: 0, width: 10, height: 10, display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: '-webkit-grab' }} >
-                        <div style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: '#6a6a6a', cursor: 'nesw-resize' }} onMouseDown={resize({ direction: 'ne' })} role="presentation" />
+                    <div
+                      style={{ position: 'absolute', top: 0, right: 0, width: 10, height: 10, display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: '-webkit-grab' }}
+                      onMouseDown={event => rotateOperation({ event })}
+                      role="presentation"
+                    >
+                        <div style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: '#6a6a6a' }} />
                     </div>
                 }
                 {
@@ -47,6 +53,7 @@ const Board = ({ frame, isFocused, value, color, scale, startDrag, stopDrag, res
 
 Board.propTypes = {
     frame: ImmutablePropTypes.map.isRequired,
+    frameId: PropTypes.string.isRequired,
     value: ImmutablePropTypes.list.isRequired,
     isFocused: PropTypes.bool.isRequired,
     color: PropTypes.func.isRequired,
@@ -54,6 +61,7 @@ Board.propTypes = {
     startDrag: PropTypes.func.isRequired,
     stopDrag: PropTypes.func.isRequired,
     resize: PropTypes.func.isRequired,
+    rotateOperation: PropTypes.func.isRequired,
 };
 
 const styles = {
@@ -62,9 +70,6 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         flexWrap: 'wrap',
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
     },
 };
 
@@ -83,11 +88,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     const mouseupListener = () => {
         document.removeEventListener('mouseup', mouseupListener, true);
         document.removeEventListener('mousemove', rotateMove, true);
+        document.documentElement.style.cursor = 'default';
+        document.getElementById(`${ownProps.frameId}ContentBoard`).style.cursor = 'move';
     };
     const rotateMove = (event) => {
-        const left = (event.clientX + document.documentElement.scrollLeft) - document.getElementById('rotateImage').offsetLeft - (document.getElementById('rotateImage').offsetWidth / 2);
-        const top = (event.clientY + document.documentElement.scrollTop) - document.getElementById('rotateImage').offsetTop - (document.getElementById('rotateImage').offsetHeight / 2);
-        let angle = Math.atan(top / left) * (180 / Math.PI);
+        const left = (event.clientX + document.documentElement.scrollLeft) - document.getElementById('animateBoard').offsetLeft - this.drag.state.x - (document.getElementById(`${ownProps.frameId}ContentBoard`).offsetWidth / 2);
+        const top = (event.clientY + document.documentElement.scrollTop) - ((document.getElementById('animateBoard').offsetTop + document.getElementById('animateBoard').offsetHeight + this.drag.state.y) - (document.getElementById(`${ownProps.frameId}ContentBoard`).offsetHeight / 2));
+        let angle = (Math.atan(top / left) + Math.atan(document.getElementById(`${ownProps.frameId}ContentBoard`).offsetHeight / document.getElementById(`${ownProps.frameId}ContentBoard`).offsetWidth)) * (180 / Math.PI);
         if (top > 0) {
             if (left <= 0) {
                 angle += 180;
@@ -112,7 +119,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
             return '#ccc';
         },
-        startDrag: ({ data }) => {
+        startDrag: ({ event, data }) => {
+            document.getElementById(`${ownProps.frameId}ContentBoard`).style.cursor = 'move';
             start = Map({
                 x: data.x,
                 y: data.y,
@@ -120,8 +128,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch({
                 type: 'FOCUS_FRAME',
                 frameId: ownProps.frameId,
-                shift: false,
+                shift: true,
             });
+            event.preventDefault();
+            event.stopPropagation();
         },
         stopDrag: ({ data, unitLength }) =>
             dispatch({
@@ -129,12 +139,39 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 deltaX: Math.round((data.lastX - start.get('x')) / unitLength),
                 deltaY: -Math.round((data.lastY - start.get('y')) / unitLength),
             }),
-        rotateOperation: () => {
+        rotateOperation: ({ event }) => {
             document.addEventListener('mouseup', mouseupListener, true);
             document.addEventListener('mousemove', rotateMove, true);
+            document.documentElement.style.cursor = '-webkit-grabbing';
+            document.getElementById(`${ownProps.frameId}ContentBoard`).style.cursor = '-webkit-grabbing';
+            event.preventDefault();
+            event.stopPropagation();
         },
-        resize: ({ event }) => {
-            console.log(event.deltaY);
+        change: ({ value, operationKind }) =>
+            dispatch({
+                type: 'ANIMATE_BOARD_FUNCTIONPANEL_SETTING_OPERATION',
+                frameId: ownProps.frameId,
+                operationKind,
+                value,
+            }),
+        resize: ({ event, value }) => {
+            if (event.deltaY > 0) {
+                document.getElementById(`${ownProps.frameId}ContentBoard`).style.cursor = '-webkit-zoom-in';
+                dispatch({
+                    type: 'ANIMATE_BOARD_FUNCTIONPANEL_SETTING_OPERATION',
+                    frameId: ownProps.frameId,
+                    operationKind: ['shrink'],
+                    value: value + 0.05,
+                });
+            } else {
+                document.getElementById(`${ownProps.frameId}ContentBoard`).style.cursor = '-webkit-zoom-out';
+                dispatch({
+                    type: 'ANIMATE_BOARD_FUNCTIONPANEL_SETTING_OPERATION',
+                    frameId: ownProps.frameId,
+                    operationKind: ['shrink'],
+                    value: value - 0.05,
+                });
+            }
         },
     };
 };

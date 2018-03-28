@@ -5,8 +5,8 @@ import { faChevronDown, faPlus } from '@fortawesome/fontawesome-free-solid';
 import { connect } from 'react-redux';
 import stringWidth from 'string-width';
 import PropTypes from 'prop-types';
-import Statuses from './Statuses/statuses';
-import Animates from './Animates/animates';
+import Statuses from './Status/statuses';
+import Animates from './Animate/animates';
 
 const Figure = ({ figureId, name, visibility, viewMode, changeName,
     contextMenu, pullDown, addElement,

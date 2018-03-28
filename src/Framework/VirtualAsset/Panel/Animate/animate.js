@@ -1,126 +1,135 @@
 import React from 'react';
+import uuidv4 from 'uuid';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faChevronDown, faPlus } from '@fortawesome/fontawesome-free-solid';
 import { connect } from 'react-redux';
 import stringWidth from 'string-width';
 import PropTypes from 'prop-types';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/fontawesome-free-solid';
+import Frames from './Frame/frames';
 
-const Animate = ({ animateId, name, isAnimate, mouseDown, mouseEnter, mouseLeave, contextMenu, changeName, deleteEnter, deleteLeave, deleteClick }) => {
-    const color = isAnimate ? '#6a6a6a' : '#aaa';
-    const barColor = isAnimate ? '#6a6a6a' : '#f9f9f9';
-    const backgroundColor = isAnimate ? '#ededed' : '#f9f9f9';
-    return (
-        <div id={animateId} style={{ ...styles.main, color, backgroundColor }} onMouseDown={mouseDown} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave({ isAnimate })} onContextMenu={contextMenu} role="presentation">
-            <FontAwesomeIcon icon={faTimes} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '20%', color: '#aaa' }} size="lg" onMouseEnter={event => deleteEnter({ event })} onMouseLeave={event => deleteLeave({ event })} onClick={deleteClick} />
-            <div style={{ display: 'flex', justifyContent: 'center', width: '60%' }}>
-                <input
-                  id={`${animateId}title`}
-                  style={{ ...styles.title, width: (stringWidth(name) * 8) + 8 }}
-                  value={name}
-                  onChange={event => changeName({ event })}
-                />
+const Animate = ({ animateId, name, visibility, changeName,
+    contextMenu, pullDown, addElement,
+}) => (
+    <div id={`${animateId}virtualAsset`} style={styles.main} >
+        <div id={`${animateId}virtualAsset_animate`} style={styles.animate} onContextMenu={contextMenu}>
+            <FontAwesomeIcon icon={faChevronDown} id={`${animateId}virtualAsset_pullDown`} style={{ ...styles.pullDown, transform: visibility ? 'rotate(0deg)' : 'rotate(-90deg)' }} onClick={event => pullDown({ event, visibility })} role="presentation" />
+            <div style={{ display: 'flex', alignItems: 'center', width: '80%' }}>
+                <input style={{ ...styles.title, width: (stringWidth(name) * 8) + 5 }} value={name} onChange={event => changeName({ event })} />
             </div>
-            <div id={`${animateId}statusBar`} style={{ ...styles.statusBar, backgroundColor: barColor }} />
+            <FontAwesomeIcon icon={faPlus} id={`${animateId}virtualAsset_addFrame`} style={styles.addFrame} onMouseDown={addElement} role="presentation" />
         </div>
-    );
-};
+        <Frames animateId={animateId} />
+    </div>
+);
 
 Animate.propTypes = {
     animateId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    isAnimate: PropTypes.bool.isRequired,
-    mouseDown: PropTypes.func.isRequired,
-    mouseEnter: PropTypes.func.isRequired,
-    mouseLeave: PropTypes.func.isRequired,
-    contextMenu: PropTypes.func.isRequired,
+    visibility: PropTypes.bool.isRequired,
     changeName: PropTypes.func.isRequired,
-    deleteEnter: PropTypes.func.isRequired,
-    deleteLeave: PropTypes.func.isRequired,
-    deleteClick: PropTypes.func.isRequired,
+    contextMenu: PropTypes.func.isRequired,
+    pullDown: PropTypes.func.isRequired,
+    addElement: PropTypes.func.isRequired,
 };
 
 let styles = {
     main: {
-        width: 240,
-        height: 45,
-        marginTop: 5,
-        marginLeft: 5,
+        width: '100%',
         display: 'flex',
-        borderRadius: 5,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        transition: 'all 0.4s ease-out',
-        overflow: 'hidden',
+        flexDirection: 'column',
         opacity: 1,
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    animate: {
+        width: '100%',
+        height: 43,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        overflow: 'hidden',
+        transition: 'all 0.3s ease-out',
+    },
+    pullDown: {
+        width: '10%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: '5%',
+        fontSize: 16,
+        cursor: 'pointer',
+        color: '#aaa',
+        transition: 'all 0.4s ease-out',
     },
     title: {
-        width: '80%',
+        marginLeft: 10,
         border: 'none',
         backgroundColor: 'transparent',
         color: '#888',
         fontSize: 16,
-        fontWeight: 'bold',
         cursor: 'pointer',
-        textAlign: 'center',
+        textAlign: 'text',
+        fontWeight: 'bold',
     },
-    statusBar: {
-        width: '2%',
-        marginLeft: '18%',
-        height: '100%',
-        backgroundColor: '#f9f9f9',
+    addFrame: {
+        color: '#aaa',
+        fontSize: 16,
+        fontWeight: 'lighter',
+        width: '10%',
+        cursor: 'pointer',
         transition: 'all 0.1s ease-in-out',
     },
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    isAnimate: state.getIn(['virtualAsset', 'animate', 'focusedAnimateId']) === ownProps.animateId,
     name: state.getIn(['virtualAsset', 'animate', 'sequence', ownProps.animateId, 'name']),
+    visibility: state.getIn(['virtualAsset', 'animate', 'sequence', ownProps.animateId, 'visibility']),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    mouseDown: () =>
-        dispatch({
-            type: 'VIRTUALASSET_FOCUS_ASSET',
-            animateId: ownProps.animateId,
-        }),
-    mouseEnter: () => {
-        document.getElementById(ownProps.animateId).style.backgroundColor = '#ededed';
-        document.getElementById(`${ownProps.animateId}statusBar`).style.backgroundColor = '#6a6a6a';
-        document.getElementById(`${ownProps.animateId}title`).style.color = '#888';
-    },
-    mouseLeave: ({ isAnimate }) => () => {
-        if (isAnimate) {
-            document.getElementById(ownProps.animateId).style.backgroundColor = '#ededed';
-            document.getElementById(`${ownProps.animateId}title`).style.color = '#888';
-            document.getElementById(`${ownProps.animateId}statusBar`).style.backgroundColor = '#6a6a6a';
-        } else {
-            document.getElementById(ownProps.animateId).style.backgroundColor = '#f9f9f9';
-            document.getElementById(`${ownProps.animateId}title`).style.color = '#aaa';
-            document.getElementById(`${ownProps.animateId}statusBar`).style.backgroundColor = '#f9f9f9';
-        }
-    },
-    contextMenu: () =>
-        dispatch({
-            type: 'VIRTUALASSET_ASSET_TIPS',
-            animateId: ownProps.animateId,
-        }),
-    changeName: ({ event }) =>
-        dispatch({
-            type: 'VIRTUALASSET_RENAME_ASSET',
-            animateId: ownProps.animateId,
-            name: event.target.value,
-        }),
-    deleteEnter: ({ event }) => {
-        event.target.style.color = '#6a6a6a';
-    },
-    deleteLeave: ({ event }) => {
-        event.target.style.color = '#aaa';
-    },
-    deleteClick: () =>
-        dispatch({
-            type: 'VIRTUALASSET_DELETE_ASSET',
-            animateId: ownProps.animateId,
-        }),
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+    const mouseupListener = () => {
+        document.getElementById(`${ownProps.animateId}virtualAsset_addStatus`).style.fontSize = 16;
+        document.removeEventListener('mouseup', mouseupListener, true);
+    };
+    return {
+        contextMenu: () => {
+            dispatch({
+                type: 'VIRTUALASSET_ANIMATE_TIPS',
+                animateId: ownProps.animateId,
+                target: 'figure',
+            });
+        },
+        pullDown: ({ event, visibility }) => { // 执行动画
+            dispatch({
+                type: 'VIRTUALASSET_ANIMATE_VISIBILITY',
+                animateId: ownProps.animateId,
+                visibility: !visibility,
+            });
+            event.preventDefault();
+        },
+        changeName: ({ event }) => {
+            dispatch({
+                type: 'VIRTUALASSET_RENAME_ANIMATE',
+                animateId: ownProps.animateId,
+                name: event.target.value,
+            });
+        },
+        addElement: () => {
+            dispatch({
+                type: 'VIRTUALASSET_ADD_FRAME',
+                animateId: ownProps.animateId,
+                frameId: uuidv4(),
+            });
+            dispatch({
+                type: 'VIRTUALASSET_FIGURE_VISIBILITY',
+                animateId: ownProps.animateId,
+                visibility: true,
+            });
+            document.getElementById(`${ownProps.figureId}virtualAsset_addStatus`).style.fontSize = 10;
+            document.addEventListener('mouseup', mouseupListener, true);
+        },
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Animate);

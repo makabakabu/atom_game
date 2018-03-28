@@ -21,8 +21,7 @@ const saveResource = gql`
     }
 `;
 
-const Figures = ({ figuresGroupList, figuresGroup, panelSort, hover, saveResource }) =>
-(
+const Figures = ({ figuresGroupList, figuresGroup, panelSort, hover, saveResource }) => (
     <div id="figures" style={styles.main} >
         <ContextMenuTrigger id="figuresMenu">
             <SortableList id="figuresGroup" items={figuresGroupList} onSortEnd={({ oldIndex, newIndex }) => panelSort({ oldIndex, newIndex, content: figuresGroup.get(figuresGroupList[oldIndex]), hover, saveResource })} pressDelay={200} transitionDuration={100} />

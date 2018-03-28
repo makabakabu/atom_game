@@ -19,18 +19,150 @@ const asset = ({ state, action }) => {
         case 'VIRTUALASSET_SAVE_SCRIPTS':
             return state.setIn([viewMode, 'sequence', focusedId, 'scripts'], action.scripts);
 
+        case 'VIRTUALASSET_FIGURE_VISIBILITY':
+            return state.setIn([viewMode, 'sequence', viewMode === 'figure' ? action.figureId : action.animateId, 'visibility'], action.visibility);
+
         case 'VIRTUALASSET_ADD_ASSET':
-            return state.updateIn([viewMode, 'sequence'], sequence => sequence.concat(OrderedMap({
+            if (viewMode === 'figure') {
+                return state.updateIn(['figure', 'sequence'], sequence => sequence.concat(OrderedMap({
                 [uuidv4()]: Map({
-                    name: viewMode === 'figure' ? '人物' : '动画',
+                    name: '人物',
                     scripts: '',
-                    figure: Map({
-                        focusedFigureId: '',
+                    visibility: false,
+                    status: Map({
+                        focusedStatusId: '',
                         sequence: OrderedMap({}),
                     }),
-                    preview: Map({
-                        execute: false,
-                    }) }) })));
+                    execute: false,
+                }) })));
+            }
+            return state.updateIn(['animate', 'sequence'], sequence => sequence.concat(OrderedMap({
+                [uuidv4()]: Map({
+                    name: '动画',
+                    scripts: '',
+                    visibility: false,
+                    frame: Map({
+                        focusedFrameId: '',
+                        sequence: OrderedMap({}),
+                    }),
+                    execute: false,
+                }) })));
+
+        case 'VIRTUALASSET_ADD_STATUS':
+            return state.updateIn(['figure', 'sequence', action.figureId, 'status', 'sequence'], sequence => sequence.concat(OrderedMap({
+                [uuidv4()]: Map({
+                    name: '状态',
+                    value: List([...Array(32)].map(() => List(Array(48).fill(Map({ hex: '#ededed', opacity: 1 }))))),
+                    paintTool: Map({
+                        viewMode: 'cursor',
+                        macro: Map({
+                            hex: '#f04743',
+                            region: List([...Array(32)].map(() => List(Array(48).fill(Map({ hex: '#ededed', opacity: 1, inner: false }))))), // row, col, hex, opacity
+                            cursorRegion: List([]),
+                        }),
+                        cursor: Map({
+                            arrangeViewMode: '',
+                            mode: 'outline',
+                            position: Map({
+                                viewMode: 'size',
+                                bracket: '',
+                                width: 0,
+                                height: 0,
+                            }),
+                            rotate: Map({
+                                flip: '',
+                                angle: 0,
+                                operation: false,
+                            }),
+                            select: false,
+                            pick: Map({
+                                trigger: false,
+                                row: '',
+                                col: '',
+                                hex: '',
+                                opacity: '',
+                            }),
+                            region: List([]),
+                        }),
+                        region: Map({
+                            viewMode: 'create',
+                            start: Map({ row: 0, col: 0 }),
+                            click: false,
+                            mode: 'outline',
+                        }),
+                        brush: Map({
+                            colorPicker: false,
+                            pixelSize: 1,
+                            opacity: 1,
+                            mouseDown: false,
+                            mouseRegion: List([]),
+                        }),
+                        shape: Map({
+                            viewMode: 'rectangle',
+                            click: false,
+                            start: Map({ row: 0, col: 0 }),
+                            rectangle: Map({
+                                stroke: Map({
+                                    thickness: 1,
+                                    colorPicker: false,
+                                    hex: '#F2453D',
+                                    opacity: 1,
+                                    selected: true,
+                                }),
+                                fill: Map({
+                                    colorPicker: false,
+                                    hex: '#F2453D',
+                                    opacity: 1,
+                                    selected: false,
+                                }),
+                            }),
+                            elipse: Map({
+                                stroke: Map({
+                                    thickness: 1,
+                                    colorPicker: false,
+                                    hex: '#F2453D',
+                                    opacity: 1,
+                                    selected: true,
+                                }),
+                                fill: Map({
+                                    colorPicker: false,
+                                    hex: '#F2453D',
+                                    opacity: 1,
+                                    selected: true,
+                                }),
+                            }),
+                            polygon: Map({
+                                edges: 5,
+                                operation: false,
+                                stroke: Map({
+                                    thickness: 1,
+                                    hex: '#F2453D',
+                                    colorPicker: false,
+                                    opacity: 1,
+                                    selected: true,
+                                }),
+                                fill: Map({
+                                    hex: '#F2453D',
+                                    colorPicker: false,
+                                    opacity: 1,
+                                    selected: true,
+                                }),
+                            }),
+                        }),
+                        bucket: Map({
+                            mode: 'outline',
+                            colorPicker: false,
+                            opacity: 100,
+                        }),
+                        eraser: Map({
+                            pixelSize: 1,
+                        }),
+                        picker: Map({
+                            colorPicker: false,
+                            preserveViewMode: 'brush',
+                        }),
+                    }),
+                }) })));
 
         case 'VIRTUALASSET_FOCUS_ASSET':
             if (viewMode === 'figure') {
@@ -40,6 +172,9 @@ const asset = ({ state, action }) => {
 
         case 'VIRTUALASSET_RENAME_ASSET':
             return state.setIn([viewMode, 'sequence', viewMode === 'figure' ? action.figureId : action.animateId, 'name'], action.name);
+
+        case 'VIRTUALASSET_RENAME_STATUS':
+            return state.setIn([viewMode, 'sequence', viewMode === 'figure' ? action.figureId : action.animateId, 'status', 'sequence', action.statusId, 'name'], action.name);
 
         case 'VIRTUALASSET_REORDER_ASSET': {
             const figureIdList = arrayMove(List(state.getIn([viewMode, 'sequence']).keySeq()).toArray(), action.oldIndex, action.newIndex);

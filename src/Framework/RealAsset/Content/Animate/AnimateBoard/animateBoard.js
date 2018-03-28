@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import Proptypes from 'prop-types';
 import uuidv4 from 'uuid';
 import Setting from './setting';
 import Board from './board';
 
-const AnimateBoard = ({ frameList }) =>
+const AnimateBoard = ({ frameList, focusedAnimate }) =>
 (
     <div style={styles.main}>
-        <div id="animateBoard" style={styles.board} >
+        <div id="animateBoard" style={styles.board} onMouseDown={focusedAnimate} role="presentation">
             {
                 frameList.map(frameId => <Board key={uuidv4()} frameId={frameId} />)
             }
@@ -19,6 +20,7 @@ const AnimateBoard = ({ frameList }) =>
 
 AnimateBoard.propTypes = {
     frameList: ImmutablePropTypes.list.isRequired,
+    focusedAnimate: Proptypes.func.isRequired,
 };
 
 const styles = {
@@ -37,7 +39,6 @@ const styles = {
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'flex-end',
-        position: 'relative',
         overflow: 'hidden',
     },
 };
@@ -49,4 +50,12 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(AnimateBoard);
+const mapDispatchToProps = dispatch => ({
+    focusedAnimate: () => {
+        dispatch({
+            type: 'ANIMATE_FOCUS_NO_FRAMEID',
+        });
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnimateBoard);

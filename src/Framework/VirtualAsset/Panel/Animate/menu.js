@@ -9,7 +9,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const Menu = ({ contextMenu, enterLeave, deleteFigure, duplicate, copy }) => (
     <ContextMenu id="figuresMenu">
-        <div id="figureMenu" style={styles.main}>
+        <div style={styles.main}>
             <div style={styles.container}>
                 <MenuItem>
                     <div
@@ -32,7 +32,7 @@ const Menu = ({ contextMenu, enterLeave, deleteFigure, duplicate, copy }) => (
                       style={styles.menu}
                       onMouseEnter={enterLeave({ item: 'figureMenu2', color1: 'white', color2: '#707070' })}
                       onMouseLeave={enterLeave({ item: 'figureMenu2', color1: 'black', color2: 'white' })}
-                      onMouseDown={duplicate({ contextMenu, kind: 'duplicate', viewMode: contextMenu.get('viewMode') })}
+                      onMouseDown={duplicate({ contextMenu, kind: 'duplicate' })}
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faClone} size="lg" />
@@ -62,7 +62,7 @@ const Menu = ({ contextMenu, enterLeave, deleteFigure, duplicate, copy }) => (
                       style={styles.menu}
                       onMouseEnter={enterLeave({ item: 'figureMenu4', color1: 'white', color2: '#707070' })}
                       onMouseLeave={enterLeave({ item: 'figureMenu4', color1: 'black', color2: 'white' })}
-                      onMouseDown={duplicate({ contextMenu, kind: 'paste', viewMode: contextMenu.get('viewMode') })}
+                      onMouseDown={duplicate({ contextMenu, kind: 'paste' })}
                       role="presentation"
                     >
                         <FontAwesomeIcon icon={faPaste} size="lg" />
@@ -111,7 +111,7 @@ let styles = {
 };
 
 const mapStateToProps = state => ({
-    contextMenu: state.getIn(['figure', 'contextMenu']),
+    contextMenu: state.getIn(['realAsset', 'contextMenu']),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -140,8 +140,9 @@ const mapDispatchToProps = dispatch => ({
                 type: 'DELETE_FIGURE',
             });
         },
-        duplicate: ({ contextMenu, kind, viewMode }) => async () => {
+        duplicate: ({ contextMenu, kind }) => async () => {
             const newId = uuidv4();
+            const viewMode = contextMenu.get('viewMode');
             await new Promise((resolve) => {
                 if (viewMode !== 'animate') {
                     let { figureId, statusId } = contextMenu.getIn(['content', 'figure']).toObject();

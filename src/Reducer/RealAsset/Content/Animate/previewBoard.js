@@ -52,6 +52,9 @@ const previewBoard = ({ state, action }) => {
             return state.updateIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'frameSequence'], sequence => OrderedMap(sequenceList.map(key => [key, sequence.get(key)])));
         }
 
+        case 'ANIMATE_FOCUS_NO_FRAMEID':
+            return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], List([]));
+
         case 'FOCUS_FRAME':
             if (state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).size === 0 || (!state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).includes(action.framId) && !action.shift)) {
                 state = state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], List([action.frameId]));
