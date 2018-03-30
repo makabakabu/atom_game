@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import stringWidth from 'string-width';
 import PropTypes from 'prop-types';
+import Board from './board';
 
-const Status = ({ statusId, name, isStatus, mouseDown, mouseEnter, mouseLeave, contextMenu, changeName }) => {
+const Status = ({ figureId, statusId, name, isStatus, mouseDown, mouseEnter, mouseLeave, contextMenu, changeName }) => {
     const color = isStatus ? '#888' : '#aaa';
     const barColor = isStatus ? '#888' : '#f9f9f9';
     const backgroundColor = isStatus ? '#ededed' : '#f9f9f9';
@@ -11,7 +12,10 @@ const Status = ({ statusId, name, isStatus, mouseDown, mouseEnter, mouseLeave, c
     return (
         <div id={statusId} style={{ ...styles.main, color, backgroundColor }} onMouseDown={mouseDown} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave({ isStatus })} onContextMenu={contextMenu} role="presentation">
             <div id={`${statusId}statusBar`} style={{ ...styles.statusBar, backgroundColor: barColor, marginRight }} />
-            <div style={{ width: '80%', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div id={`${statusId}panelStatus`} style={{ width: 100, height: 0, overflow: 'hidden', transition: 'all 0.2s ease-in-out' }}>
+                    <Board key={`${statusId}figureBoard`} statusId={statusId} figureId={figureId} />
+                </div>
                 <input
                   id={`${statusId}title`}
                   style={{ ...styles.title, width: (stringWidth(name) * 7) + 7 }}
@@ -24,6 +28,7 @@ const Status = ({ statusId, name, isStatus, mouseDown, mouseEnter, mouseLeave, c
 };
 
 Status.propTypes = {
+    figureId: PropTypes.string.isRequired,
     statusId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     isStatus: PropTypes.bool.isRequired,
@@ -78,12 +83,14 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         });
     },
     mouseEnter: () => {
+        document.getElementById(`${ownProps.statusId}panelStatus`).style.height = '75px';
         document.getElementById(ownProps.statusId).style.backgroundColor = '#ededed';
         document.getElementById(`${ownProps.statusId}statusBar`).style.backgroundColor = '#6a6a6a';
         document.getElementById(`${ownProps.statusId}statusBar`).style.marginRight = '3%';
         document.getElementById(`${ownProps.statusId}title`).style.color = '#888';
     },
     mouseLeave: ({ isStatus }) => () => {
+        document.getElementById(`${ownProps.statusId}panelStatus`).style.height = 0;
         if (isStatus) {
             document.getElementById(ownProps.statusId).style.backgroundColor = '#ededed';
             document.getElementById(`${ownProps.statusId}statusBar`).style.backgroundColor = '#6a6a6a';
