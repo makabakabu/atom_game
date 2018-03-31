@@ -13,7 +13,7 @@ const Status = ({ figureId, statusId, name, isStatus, mouseDown, mouseEnter, mou
         <div id={statusId} style={{ ...styles.main, color, backgroundColor }} onMouseDown={mouseDown} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave({ isStatus })} onContextMenu={contextMenu} role="presentation">
             <div id={`${statusId}statusBar`} style={{ ...styles.statusBar, backgroundColor: barColor, marginRight }} />
             <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div id={`${statusId}panelStatus`} style={{ width: 100, height: 0, overflow: 'hidden', transition: 'all 0.2s ease-in-out' }}>
+                <div id={`${statusId}panelStatus`} style={{ width: 104, height: 0, overflow: 'hidden', transition: 'all 0.2s ease-in-out' }}>
                     <Board key={`${statusId}figureBoard`} statusId={statusId} figureId={figureId} />
                 </div>
                 <input
@@ -42,7 +42,6 @@ Status.propTypes = {
 let styles = {
     main: {
         width: '100%',
-        height: 35,
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -51,7 +50,7 @@ let styles = {
         opacity: 1,
     },
     title: {
-        width: '80%',
+        height: 35,
         border: 'none',
         backgroundColor: 'transparent',
         color: '#888',
