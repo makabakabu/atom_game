@@ -2,18 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Divider } from 'antd';
-import Figures from './Figure/figures';
-import Animate from './animate';
-import Bottom from './bottom';
 import BoardContent from './Content/content';
 import PaintTool from './PaintTool/paintTool';
 
-const Preview = ({ execute, isEdit }) => (
+const Preview = ({ isEdit }) => (
     <div style={{ display: 'flex' }}>
-        <div style={style} >
-            { execute ? <Animate /> : <Figures /> }
-            <Bottom />
-        </div>
         {
             isEdit &&
             <div style={{ display: 'flex' }}>
@@ -26,15 +19,7 @@ const Preview = ({ execute, isEdit }) => (
 );
 
 Preview.propTypes = {
-    execute: PropTypes.bool.isRequired,
     isEdit: PropTypes.bool.isRequired,
-};
-
-const style = {
-    width: 245,
-    display: 'flex',
-    flexDirection: 'column',
-    height: document.documentElement.clientHeight - 100,
 };
 
 const mapStateToProps = (state) => {
@@ -45,7 +30,6 @@ const mapStateToProps = (state) => {
     }
     return {
         isEdit: focusedId !== '' && state.getIn(['virtualAsset', viewMode, 'sequence', focusedId, 'figure', 'focusedFigureId']) !== '',
-        execute: state.getIn(['virtualAsset', viewMode, 'sequence', focusedId, 'preview', 'execute']),
     };
 };
 

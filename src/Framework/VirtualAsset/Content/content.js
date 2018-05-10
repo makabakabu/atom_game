@@ -44,7 +44,7 @@ Content.defaultProps = {
 
 const styles = {
     main: {
-        width: document.documentElement.clientWidth - 520,
+        width: document.documentElement.clientWidth - 300,
         height: document.documentElement.clientHeight - 120,
         display: 'flex',
         justifyContent: 'center',

@@ -129,7 +129,6 @@ const mapDispatchToProps = (dispatch) => {
                 }), 200);
             while (progress.get('execute')) {
                 num += 1;
-                console.log(num);
                 const { time, frameList } = generator({ frameSequence, loopSequence, num });
                 setTimeout(() => {
                     dispatch({

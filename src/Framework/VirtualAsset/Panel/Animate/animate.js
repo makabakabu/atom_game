@@ -110,7 +110,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         changeName: ({ event }) => {
             dispatch({
-                type: 'VIRTUALASSET_RENAME_ANIMATE',
+                type: 'VIRTUALASSET_RENAME_ASSET',
                 animateId: ownProps.animateId,
                 name: event.target.value,
             });

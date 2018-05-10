@@ -21,7 +21,11 @@ const handlers = {
 };
 const Board = ({ frameId, value, name, isFocused, frameFocus, deleteEnterLeave, frameSequenceDelete, contextMenu }) => (
     <HotKeys keyMap={keyMap} handlers={handlers}>
-        <div id={frameId} style={styles.main} onContextMenu={contextMenu}>
+        <div
+          id={frameId}
+          style={styles.main}
+          onContextMenu={contextMenu}
+        >
             <div id={`${frameId}FigureBoardDelete`} style={styles.delete} onMouseEnter={deleteEnterLeave({ id: `${frameId}FigureBoardDelete`, type: 'enter' })} onMouseLeave={deleteEnterLeave({ id: `${frameId}FigureBoardDelete`, type: 'leave' })} onClick={frameSequenceDelete} role="presentation"> ✖︎ </div>
             <div style={{ width: 100, height: 75, display: 'flex', flexWrap: 'wrap', boxShadow: `0 0 ${isFocused ? 8 : 0}px rgba(0, 0, 0, 0.5)`, margin: 4 }} onClick={frameFocus} role="presentation">
                 {

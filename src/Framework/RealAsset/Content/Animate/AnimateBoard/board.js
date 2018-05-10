@@ -102,6 +102,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         } else {
             angle = (left > 0) ? 360 + angle : 180 + angle;
         }
+        console.log(ownProps.frameId, Math.floor(angle));
         dispatch({
             type: 'ANIMATE_BOARD_FUNCTIONPANEL_SETTING_OPERATION',
             frameId: ownProps.frameId,
@@ -128,7 +129,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch({
                 type: 'FOCUS_FRAME',
                 frameId: ownProps.frameId,
-                shift: true,
+                shift: false,
             });
             event.preventDefault();
             event.stopPropagation();

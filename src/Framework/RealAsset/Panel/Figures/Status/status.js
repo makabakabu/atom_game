@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import stringWidth from 'string-width';
 import PropTypes from 'prop-types';
+import { Popover } from 'antd';
 import Board from './board';
 
 const Status = ({ figureId, statusId, name, isStatus, mouseDown, mouseEnter, mouseLeave, contextMenu, changeName }) => {
@@ -10,20 +11,27 @@ const Status = ({ figureId, statusId, name, isStatus, mouseDown, mouseEnter, mou
     const backgroundColor = isStatus ? '#ededed' : '#f9f9f9';
     const marginRight = isStatus ? '3%' : '8%';
     return (
-        <div id={statusId} style={{ ...styles.main, color, backgroundColor }} onMouseDown={mouseDown} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave({ isStatus })} onContextMenu={contextMenu} role="presentation">
-            <div id={`${statusId}statusBar`} style={{ ...styles.statusBar, backgroundColor: barColor, marginRight }} />
-            <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div id={`${statusId}panelStatus`} style={{ width: 104, height: 0, overflow: 'hidden', transition: 'all 0.2s ease-in-out' }}>
-                    <Board key={`${statusId}figureBoard`} statusId={statusId} figureId={figureId} />
+        <Popover
+          content={
+                        <div id={`${statusId}panelStatus`} style={{ width: 102, height: 80, overflow: 'hidden', dispaly: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Board key={`${statusId}figureBoard`} statusId={statusId} figureId={figureId} />
+                        </div>
+                    }
+          placement="right"
+        >
+            <div id={statusId} style={{ ...styles.main, color, backgroundColor }} onMouseDown={mouseDown} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave({ isStatus })} onContextMenu={contextMenu} role="presentation">
+                <div id={`${statusId}statusBar`} style={{ ...styles.statusBar, backgroundColor: barColor, marginRight }} />
+                <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <input
+                      id={`${statusId}title`}
+                      style={{ ...styles.title, width: (stringWidth(name) * 7) + 7 }}
+                      value={name}
+                      onChange={changeName}
+                    />
                 </div>
-                <input
-                  id={`${statusId}title`}
-                  style={{ ...styles.title, width: (stringWidth(name) * 7) + 7 }}
-                  value={name}
-                  onChange={changeName}
-                />
             </div>
-        </div>
+        </Popover>
+
     );
 };
 
@@ -82,14 +90,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         });
     },
     mouseEnter: () => {
-        document.getElementById(`${ownProps.statusId}panelStatus`).style.height = '75px';
         document.getElementById(ownProps.statusId).style.backgroundColor = '#ededed';
         document.getElementById(`${ownProps.statusId}statusBar`).style.backgroundColor = '#6a6a6a';
         document.getElementById(`${ownProps.statusId}statusBar`).style.marginRight = '3%';
         document.getElementById(`${ownProps.statusId}title`).style.color = '#888';
     },
     mouseLeave: ({ isStatus }) => () => {
-        document.getElementById(`${ownProps.statusId}panelStatus`).style.height = 0;
         if (isStatus) {
             document.getElementById(ownProps.statusId).style.backgroundColor = '#ededed';
             document.getElementById(`${ownProps.statusId}statusBar`).style.backgroundColor = '#6a6a6a';

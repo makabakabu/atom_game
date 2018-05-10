@@ -29,6 +29,7 @@ const previewBoard = ({ state, action }) => {
         }
 
         case 'ANIMATE_CONTENT_DRAG': {
+            console.log(focusedAnimate);
             const animate = state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId')]);
             const focusedFrame = animate.getIn(['focusedFrame', 0]);
             let functionPanel = animate.getIn(['frameSequence', focusedFrame, 'functionPanel']);
@@ -56,13 +57,15 @@ const previewBoard = ({ state, action }) => {
             return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], List([]));
 
         case 'FOCUS_FRAME':
-            if (state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).size === 0 || (!state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).includes(action.framId) && !action.shift)) {
+            if (state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']).size === 0 || !action.shift) {
+                console.log('asdfaf');
                 state = state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame'], List([action.frameId]));
                 if (!state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'frameList']).includes(action.frameId)) {
                     state = state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'progress', 'frameList'], List([action.frameId]));
                 }
                 return state;
-            } else if (state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame']) !== state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame', 0]) && action.shift) {
+            } else if (action.frameId !== state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId'), 'focusedFrame', 0]) && action.shift) {
+                console.log('asdfasfd');
                 const animate = state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId')]);
                 const focusedFrameId = animate.getIn(['focusedFrame', 0]);
                 const frameList = List(animate.get('frameSequence').keySeq());

@@ -39,14 +39,28 @@ const asset = ({ state, action }) => {
             return state.updateIn(['animate', 'sequence'], sequence => sequence.concat(OrderedMap({
                 [uuidv4()]: Map({
                     name: '动画',
+                    scale: 1,
+                    focusedFrame: List([]),
+                    progress: Map({
+                        value: 0,
+                        max: 1,
+                        execute: false,
+                        frameList: List([]),
+                    }),
+                    loopSequence: List([]),
+                    frameSequence: OrderedMap({}),
                     scripts: '',
                     visibility: false,
                     frame: Map({
                         focusedFrameId: '',
                         sequence: OrderedMap({}),
                     }),
-                    execute: false,
                 }) })));
+
+        case 'VIRTUALASSET_FIGURE_ANIMATE_REORDER': {
+            const idList = arrayMove(List(state.getIn([viewMode, 'sequence']).keySeq()).toArray(), action.oldIndex, action.newIndex);
+            return state.updateIn([viewMode, 'sequence'], list => OrderedMap(idList.map(key => [key, list.get(key)])));
+        }
 
         case 'VIRTUALASSET_ADD_STATUS':
             return state.updateIn(['figure', 'sequence', action.figureId, 'status', 'sequence'], sequence => sequence.concat(OrderedMap({
@@ -164,9 +178,26 @@ const asset = ({ state, action }) => {
                     }),
                 }) })));
 
+        // case 'VIRTUALASSET_ADD_FRAME': {
+        //     const statusId = List(state.getIn(['figuresGroup', action.figureId, 'status']).keySeq()).get(action.oldIndex);
+        //     let animate = state.getIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId')]);
+        //     const newId = uuidv4();
+        //     if (animate.get('focusedFrame').size === 0) {
+        //         animate = animate.set('focusedFrame', List([newId]));
+        //     }
+        //     animate = animate.update('frameSequence', value => value.concat(OrderedMap({ [newId]: Map({ figureId: action.figureId, statusId, type: 'status', functionPanel: Map({
+        //         position: Map({ x: 0, y: 0 }),
+        //         angle: 0,
+        //         time: 2,
+        //         shrink: 1,
+        //     }) }) })));
+        //     return state.setIn(['figuresGroup', focusedAnimate.get('figureId'), 'animate', focusedAnimate.get('animateId')], animate);
+        // }
+
+
         case 'VIRTUALASSET_FOCUS_ASSET':
             if (viewMode === 'figure') {
-                return state.setIn([viewMode, 'focusedFigureId'], action.figureId);
+                state = state.setIn([viewMode, 'focusedFigureId'], action.figureId);
             }
             return state.setIn([viewMode, 'focusedAnimateId'], action.animateId);
 

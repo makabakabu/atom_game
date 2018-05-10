@@ -6,7 +6,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const Time = ({ frameId, time, plusChange, minusChange, change }) => (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', height: 70 }}>
+    <div
+      id={`${frameId}time`}
+      style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', height: 70, width: 30, overflow: 'hidden', transition: 'all 0.4s ease-in-out' }}
+    >
         <div style={{ width: 20, height: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <FontAwesomeIcon id={`${frameId}plusTime`} icon={faPlus} onMouseDown={() => plusChange({ value: time + 1, operationKind: ['time'] })} style={{ cursor: 'pointer', color: '#aaa', fontSize: 16, transition: 'all 0.1s ease-in-out' }} />
         </div>
