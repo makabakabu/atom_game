@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'antd';
 import uuidv4 from 'uuid';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -7,14 +8,14 @@ import { connect } from 'react-redux';
 
 const Bottom = ({ color, changeViewMode, addFigure }) => (
     <div style={styles.main}>
-        <div style={styles.viewMode}>
-            <div style={{ ...styles.choice, backgroundColor: color[2], color: color[3] }} onMouseDown={changeViewMode({ viewMode: 'status' })} role="presentation">
+        <Button.Group style={styles.viewMode}>
+            <Button style={{ ...styles.choice, backgroundColor: color[2], color: color[3] }} onMouseDown={changeViewMode({ viewMode: 'status' })} role="presentation">
                 状态
-            </div>
-            <div style={{ ...styles.choice, backgroundColor: color[0], color: color[1] }} onMouseDown={changeViewMode({ viewMode: 'animate' })} role="presentation">
+            </Button>
+            <Button style={{ ...styles.choice, backgroundColor: color[0], color: color[1] }} onMouseDown={changeViewMode({ viewMode: 'animate' })} role="presentation">
                 动画
-            </div>
-        </div>
+            </Button>
+        </Button.Group>
         <FontAwesomeIcon icon={faPlus} id="addFigure" style={styles.addFigure} onMouseDown={addFigure} role="presentation" />
     </div>
 );
@@ -43,15 +44,11 @@ let styles = {
     },
     choice: {
         height: 30,
-        width: 35,
         cursor: 'pointer',
-        marginLeft: 10,
-        border: 'none',
         fontSize: 12,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10,
     },
     addFigure: {
         cursor: 'pointer',
