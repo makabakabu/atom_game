@@ -22,11 +22,11 @@ const Content = ({ isFocused, scripts, saveScript }) => (
               height: '100%',
           }}
           setOptions={{
-          enableBasicAutocompletion: true,
-          enableLiveAutocompletion: true,
-          enableSnippets: true,
-          showLineNumbers: true,
-          tabSize: 4,
+              enableBasicAutocompletion: true,
+              enableLiveAutocompletion: true,
+              enableSnippets: true,
+              showLineNumbers: true,
+              tabSize: 4,
           }}
         />
     </div>
@@ -44,7 +44,7 @@ Content.defaultProps = {
 
 const styles = {
     main: {
-        width: document.documentElement.clientWidth - 520,
+        width: document.documentElement.clientWidth - 300,
         height: document.documentElement.clientHeight - 120,
         display: 'flex',
         justifyContent: 'center',

@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     panelSort: ({ oldIndex, newIndex }) =>
         dispatch({
-            type: 'VIRTUALASSET_REORDER_FIUGRE',
+            type: 'VIRTUALASSET_FIGURE_ANIMATE_REORDER',
             oldIndex,
             newIndex,
         }),

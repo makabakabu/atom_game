@@ -12,6 +12,9 @@ import Menu from './menu';
 const Panel = ({ actionSequence, options, actionList, changeActionInfo, actionMap, settingOk, settingCancel, panelSort }) =>
 (
     <div style={styles.main} >
+        <div style={{ height: 40, display: 'flex', alignItems: 'center', marginLeft: 20, fontSize: 16 }}>
+            事件列表
+        </div>
         <ContextMenuTrigger id="figuresMenu">
             <SortableList items={actionList} actionMap={actionMap} onSortEnd={({ oldIndex, newIndex }) => panelSort({ oldIndex, newIndex })} lockAxis="y" pressDelay={200} transitionDuration={100} />
         </ContextMenuTrigger>

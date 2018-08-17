@@ -20,7 +20,7 @@ const Content = ({
     const borderHeight = (colLength * 32) < (rowLength * 48) ? 426.6 : (426.6 * ((rowLength * 48) / (colLength * 32)));
     const valueList = [...Array(rowLength)].map(() => Array(colLength).fill(0));
     return (
-        <div style={{ width: document.documentElement.clientWidth - 510, height: document.documentElement.clientHeight - 120, display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
+        <div style={styles.main}>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
                 <div id={`${figureId}board`} style={{ ...styles.board, height: borderHeight, width: borderWidth }} >
                     {
@@ -49,12 +49,12 @@ Content.propTypes = {
 
 let styles = {
     main: {
+        width: document.documentElement.clientWidth - 510,
+        height: document.documentElement.clientHeight - 120,
         display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        justifyContent: 'center',
-        height: 426.6,
-        width: 640,
-        marginTop: 20,
     },
     board: {
         display: 'flex',

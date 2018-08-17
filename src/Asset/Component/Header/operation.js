@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/fontawesome-free-regular';
 import RealAsset from './Store/RealAsset/realAsset';
 import VirtualAsset from './Store/VirtualAsset/virtualAsset';
 import Action from './Store/Action/action';
@@ -65,7 +63,7 @@ const Operation = ({ account, register, signIn, store, storeVisibility, changeAc
             </div>
         </Modal>
         { window.sessionStorage.getItem('userName') ?
-            <FontAwesomeIcon icon={faUser} style={{ fontSize: 23, color: '#6a6a6a', cursor: 'pointer', marginLeft: 20 }} onClick={logOff} /> :
+            <img src={require('Asset/Image/Public/user.png')} style={{ width: 32, height: 32, cursor: 'pointer', marginLeft: 20 }} onClick={logOff} role="presentation" alt="用户" /> :
             <img
               src={require('Asset/Image/Public/signIn.png')}
               style={{ width: 30, height: 25, marginLeft: 20, cursor: 'pointer' }}

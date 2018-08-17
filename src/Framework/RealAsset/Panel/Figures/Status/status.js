@@ -13,7 +13,7 @@ const Status = ({ figureId, statusId, name, isStatus, mouseDown, mouseEnter, mou
         <div id={statusId} style={{ ...styles.main, color, backgroundColor }} onMouseDown={mouseDown} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave({ isStatus })} onContextMenu={contextMenu} role="presentation">
             <div id={`${statusId}statusBar`} style={{ ...styles.statusBar, backgroundColor: barColor, marginRight }} />
             <div style={{ width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div id={`${statusId}panelStatus`} style={{ width: 104, height: 0, overflow: 'hidden', transition: 'all 0.2s ease-in-out' }}>
+                <div id={`${statusId}panelStatus`} style={{ width: 102, height: 0, overflow: 'hidden', transition: 'all 0.2s ease-in-out' }}>
                     <Board key={`${statusId}figureBoard`} statusId={statusId} figureId={figureId} />
                 </div>
                 <input
